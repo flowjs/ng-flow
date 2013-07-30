@@ -1,0 +1,24 @@
+{
+  "name": "ng-resumable",
+  "version": "1.0.0",
+  "description": "Resumable.js extension on angular.js framework",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/AidasK/ng-resumable.git"
+  },
+  "keywords": [
+    "resumable.js",
+    "resumable",
+    "angular",
+    "angular.js",
+    "angular-upload"
+  ],
+  "author": "Aidas Klimas",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "10c31d798e60b3e3f2d717ee81768f2d787a4cc4"
+}
