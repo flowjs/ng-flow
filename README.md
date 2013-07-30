@@ -96,3 +96,7 @@ var app = angular.module('app', ['ngResumable'])
     resumableFactoryProvider.factory = MaybeResumable;
 }]);
 ````
+
+Need example?
+============
+Clone this repositry and go to "ng-resumable/samples/basic/index.html"
