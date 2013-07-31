@@ -8,7 +8,7 @@ angular.module('ngResumable.init', ['ngResumable.provider'])
             return {
                 pre: function (scope, element, attrs) {
                     // create the resumable object
-                    var options = angular.extend({}, scope.$eval(attrs.options));
+                    var options = angular.extend({}, scope.$eval(attrs.ngResumableInit));
                     var resumable = resumableFactory.create(options);
 
                     var events = {
