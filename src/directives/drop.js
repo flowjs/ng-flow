@@ -18,8 +18,7 @@ angular.module('ngResumable.drop', [])
                     $timeout.cancel(promise);
                     promise = $timeout(function () {
                         element.removeClass(dragOverClass);
-                    }, 100);
-                    scope.$apply();
+                    }, 100, false);
                     event.preventDefault();
                 });
             }

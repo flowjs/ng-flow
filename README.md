@@ -1,4 +1,4 @@
-What is ng-resumable
+What is ng-resumable?
 ============
 
 Resumable.js extensions for angular.js framework, no 3rd party JS dependencies required!
@@ -36,6 +36,17 @@ This directive will assign transfers variable to the scope. This variable is a r
 ````
 file is instance of ResumableFile.
 
+How can i drop files?
+============
+
+Use ng-resumable-drop directive:
+````html
+<div class="alert" ng-resumable-drop ng-drag-over-class="alert-success">
+    Drag And Drop your file here
+</div>
+````
+You can optionally set class, then file is over the element, with ng-drag-over-class attribute.
+
 
 How can i set options for resumable.js? 
 ============
@@ -56,7 +67,7 @@ var app = angular.module('app', ['ngResumable'])
 
 also can be configured on "ng-resumable-init" directive:
 ````html
-<div ng-resumable-init options="{target:'/uploader'}"> 
+<div ng-resumable-init="{target:'/uploader'}">
 
 </div>
 ````
@@ -99,4 +110,4 @@ var app = angular.module('app', ['ngResumable'])
 
 Need example?
 ============
-Clone this repositry and go to "ng-resumable/samples/basic/index.html"
+Clone this repository and go to "ng-resumable/samples/basic/index.html"
