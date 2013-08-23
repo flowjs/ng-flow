@@ -3,6 +3,10 @@ What is ng-resumable?
 
 Resumable.js extensions for angular.js framework, no 3rd party JS dependencies required!
 
+If you are looking for Resumable.js v1 support, checkout [v0.1.0](https://github
+.com/AidasK/ng-resumable/tree/v0.1.0).
+Current ng-resumable works best with [Resumable.js v2](https://github.com/AidasK/resumable.js)
+
 
 How can I use it?
 ============
@@ -31,7 +35,7 @@ This directive will assign transfers variable to the scope. This variable is a r
 ````html
 <tr ng-repeat="file in transfers">
     <td>{{$index+1}}</td>
-    <td>{{file.fileName}}</td>
+    <td>{{file.name}}</td>
 </tr>
 ````
 file is instance of ResumableFile.
@@ -47,6 +51,15 @@ Use ng-resumable-drop directive:
 ````
 You can optionally set class, then file is over the element, with ng-drag-over-class attribute.
 
+How can i preview uploaded image?
+============
+
+Use ng-resumable-img directive:
+````html
+<img ng-resumable-img="$resumable.files[0]" />
+````
+Image will be automatically updated once file is added. No need to start upload.
+
 
 How can i set options for resumable.js? 
 ============
@@ -60,6 +73,10 @@ var app = angular.module('app', ['ngResumable'])
         permanentErrors:[404, 500, 501],
         minFileSize: 0
     };
+    // You can also set default events:
+    resumableFactoryProvider.on('catchAll', function (event) {
+      ...
+    });
     // Can be used with different implementations of Resumable.js
     // resumableFactoryProvider.factory = MaybeResumable;
 }]);
@@ -82,15 +99,14 @@ Events are listed on "ng-resumable-init" directive:
       ng-file-success=" ... properties '$file', '$message' can be accessed ... "
       ng-file-progress=" ... property '$file' can be accessed ... "
       ng-file-added=" ... properties '$file', '$event' can be accessed ... "
-      ng-files-added=" ... property '$files' can be accessed ... "
+      ng-files-added=" ... properties '$files', '$event' can be accessed ... "
+      ng-files-submitted=" ... properties '$files', '$event' can be accessed ... "
       ng-file-retry=" ... property '$file' can be accessed ... "
       ng-file-error=" ... properties '$file', '$message' can be accessed ... "
       ng-error=" ... properties '$file', '$message' can be accessed ... "
       ng-complete=" ... "     
       ng-upload-start=" ... "   
-      ng-progress=" ... " 
-      ng-pause=" ... " 
-      ng-cancel=" ... " 
+      ng-progress=" ... "
       > 
 
 </div>
@@ -110,4 +126,20 @@ var app = angular.module('app', ['ngResumable'])
 
 Need example?
 ============
-Clone this repository and go to "ng-resumable/samples/basic/index.html"
+Clone this repository and go to "ng-resumable/samples/basic/index.html".
+Single image upload "ng-resumable/samples/image/index.html".
+
+
+Contribution
+============
+To ensure consistency throughout the source code, keep these rules in mind as you are working:
+
+* All features or bug fixes must be tested by one or more specs.
+
+* With the exceptions listed below, we follow the rules contained in [Google's JavaScript Style Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml):
+
+  * Wrap all code at 100 characters.
+
+  * Instead of complex inheritance hierarchies, we prefer simple objects. We use prototypical
+inheritance only when absolutely necessary.
+
