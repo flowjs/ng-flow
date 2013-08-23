@@ -1,6 +1,6 @@
 {
   "name": "ng-resumable",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Resumable.js extension on angular.js framework",
   "main": " ",
   "scripts": {

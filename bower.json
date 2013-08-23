@@ -1,6 +1,6 @@
 {
   "name": "ng-resumable",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -10,6 +10,6 @@
   ],
   "dependencies": {
     "angular": "~1.0.7",
-    "resumablejs": "*"
+    "resumable.js": "AidasK/resumable.js#Next"
   }
 }
