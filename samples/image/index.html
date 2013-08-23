@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-resumable-init
+      ng-file-added="$file.getExtension() == 'png'"
+      ng-files-submitted="$resumable.upload()"
+      ng-ctrl="MainCtrl">
+<head>
+  <title>Image</title>
+  <script src="../../bower_components/angular/angular.js"></script>
+  <script src="../../bower_components/resumable.js/src/resumable.js"></script>
+  <script src="../../src/ng-resumable.js"></script>
+  <script src="../../src/provider.js"></script>
+  <script src="../../src/directives/btn.js"></script>
+  <script src="../../src/directives/drop.js"></script>
+  <script src="../../src/directives/init.js"></script>
+  <script src="../../src/directives/transfers.js"></script>
+  <script src="../../src/directives/img.js"></script>
+  <script src="app.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+        rel="stylesheet"/>
+  <style>
+    .thumbnail {
+      max-width: 200px; max-height: 150px; line-height: 20px; margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>ng-resumable image example</h1>
+  <hr class="soften"/>
+
+  <div>
+    <div class="thumbnail" ng-hide="$resumable.files.length">
+      <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+    </div>
+    <div class="thumbnail" ng-show="$resumable.files.length">
+      <img ng-resumable-img="$resumable.files[0]" />
+    </div>
+    <div>
+      <a href="#" class="btn" ng-hide="$resumable.files.length" ng-resumable-btn>Select image</a>
+      <a href="#" class="btn" ng-show="$resumable.files.length" ng-resumable-btn>Change</a>
+      <a href="#" class="btn btn-danger" ng-show="$resumable.files.length"
+         ng-click="$resumable.cancel()">
+        Remove
+      </a>
+    </div>
+    <p>
+      Only PNG files allowed.
+    </p>
+  </div>
+</div>
+</body>
+</html>
