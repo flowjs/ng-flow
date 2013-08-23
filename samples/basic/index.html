@@ -1,90 +1,106 @@
 <!DOCTYPE html>
 <html ng-app="app" ng-resumable-init ng-ctrl="MainCtrl">
 <head>
-    <title>basic</title>
-    <script src="../../bower_components/angular/angular.js"></script>
-    <script src="../../bower_components/resumablejs/resumable.js"></script>
-    <script src="../../src/ng-resumable.js"></script>
-    <script src="../../src/provider.js"></script>
-    <script src="../../src/directives/btn.js"></script>
-    <script src="../../src/directives/drop.js"></script>
-    <script src="../../src/directives/init.js"></script>
-    <script src="../../src/directives/transfers.js"></script>
-    <script src="app.js"></script>
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
-          rel="stylesheet"/>
+  <title>basic</title>
+  <script src="../../bower_components/angular/angular.js"></script>
+  <script src="../../bower_components/resumable.js/src/resumable.js"></script>
+  <script src="../../src/ng-resumable.js"></script>
+  <script src="../../src/provider.js"></script>
+  <script src="../../src/directives/btn.js"></script>
+  <script src="../../src/directives/drop.js"></script>
+  <script src="../../src/directives/init.js"></script>
+  <script src="../../src/directives/transfers.js"></script>
+  <script src="../../src/directives/img.js"></script>
+  <script src="app.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+        rel="stylesheet"/>
 </head>
 <body>
 
-    <div class="container">
-        <h1>ng-resumable basic example</h1>
-        <hr class="soften">
+<div class="container">
+  <h1>ng-resumable basic example</h1>
+  <hr class="soften"/>
 
-        <div class="row">
-            <div class="span6">
-                <h2>Inputs:</h2>
+  <div class="row">
+    <div class="span6">
+      <h2>Inputs:</h2>
 
-                <input type="file" ng-resumable-btn />
-                <input type="file" ng-resumable-btn ng-directory />
-            </div>
-            <div class="span6">
-                <h2>Buttons:</h2>
-
-                <button class="btn" ng-resumable-btn><i class="icon icon-file"></i>Upload File</button>
-                <button class="btn" ng-resumable-btn ng-directory><i class="icon icon-folder-open"></i>Upload Folder</button>
-            </div>
-        </div>
-        <hr class="soften">
-
-        <h2>Transfers:</h2>
-        <p>
-            <a class="btn btn-small btn-success" ng-click="$resumable.upload()">Upload</a>
-            <a class="btn btn-small btn-danger" ng-click="$resumable.pause()">Pause</a>
-            <a class="btn btn-small btn-info" ng-click="$resumable.cancel()">Cancel</a>
-            <span class="label label-info">Size: {{$resumable.getSize()}}</span>
-            <span class="label label-info">Is Uploading: {{$resumable.isUploading()}}</span>
-        </p>
-        <table class="table table-hover table-bordered table-striped" ng-resumable-transfers>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Relative Path</th>
-                    <th>Unique Identifier</th>
-                    <th>#Chunks</th>
-                    <th>Progress</th>
-                    <th>Uploading</th>
-                    <th>Settings</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="file in transfers">
-                    <td>{{$index+1}}</td>
-                    <td>{{file.fileName}}</td>
-                    <td>{{file.size}}</td>
-                    <td>{{file.relativePath}}</td>
-                    <td>{{file.uniqueIdentifier}}</td>
-                    <td>{{file.chunks.length}}</td>
-                    <td>{{file.progress()}}</td>
-                    <td>{{file.isUploading()}}</td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-mini btn-warning" ng-click="file.abort()">Pause</a>
-                            <a class="btn btn-mini btn-danger" ng-click="file.cancel()">Cancel</a>
-                            <a class="btn btn-mini btn-info" ng-click="file.retry()">Retry</a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-
-        <hr class="soften">
-
-        <div class="alert" ng-resumable-drop ng-drag-over-class="alert-success">
-            Drag And Drop your file here
-        </div>
+      <input type="file" ng-resumable-btn/>
+      <input type="file" ng-resumable-btn ng-directory/>
     </div>
+    <div class="span6">
+      <h2>Buttons:</h2>
+
+      <button class="btn" ng-resumable-btn><i class="icon icon-file"></i>Upload File</button>
+      <button class="btn" ng-resumable-btn ng-directory><i class="icon icon-folder-open"></i>Upload
+        Folder
+      </button>
+    </div>
+  </div>
+  <hr class="soften">
+
+  <h2>Transfers:</h2>
+
+  <p>
+    <a class="btn btn-small btn-success" ng-click="$resumable.upload()">Upload</a>
+    <a class="btn btn-small btn-danger" ng-click="$resumable.pause()">Pause</a>
+    <a class="btn btn-small btn-info" ng-click="$resumable.cancel()">Cancel</a>
+    <span class="label label-info">Size: {{$resumable.getSize()}}</span>
+    <span class="label label-info">Is Uploading: {{$resumable.isUploading()}}</span>
+  </p>
+  <table class="table table-hover table-bordered table-striped" ng-resumable-transfers>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Size</th>
+      <th>Relative Path</th>
+      <th>Unique Identifier</th>
+      <th>#Chunks</th>
+      <th>Progress</th>
+      <th>Paused</th>
+      <th>Uploading</th>
+      <th>Completed</th>
+      <th>Settings</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="file in transfers">
+      <td>{{$index+1}}</td>
+      <td>{{file.name}}</td>
+      <td>{{file.size}}</td>
+      <td>{{file.relativePath}}</td>
+      <td>{{file.uniqueIdentifier}}</td>
+      <td>{{file.chunks.length}}</td>
+      <td>{{file.progress()}}</td>
+      <td>{{file.paused}}</td>
+      <td>{{file.isUploading()}}</td>
+      <td>{{file.isComplete()}}</td>
+      <td>
+        <div class="btn-group">
+          <a class="btn btn-mini btn-warning" ng-click="file.pause()" ng-hide="file.paused">
+            Pause
+          </a>
+          <a class="btn btn-mini btn-warning" ng-click="file.resume()" ng-show="file.paused">
+            Resume
+          </a>
+          <a class="btn btn-mini btn-danger" ng-click="file.cancel()">
+            Cancel
+          </a>
+          <a class="btn btn-mini btn-info" ng-click="file.retry()" ng-show="file.error">
+            Retry
+          </a>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <hr class="soften"/>
+
+  <div class="alert" ng-resumable-drop ng-drag-over-class="alert-success">
+    Drag And Drop your file here
+  </div>
+</div>
 </body>
 </html>
