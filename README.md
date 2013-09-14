@@ -3,9 +3,8 @@ What is ng-resumable?
 
 Resumable.js extensions for angular.js framework, no 3rd party JS dependencies required!
 
-If you are looking for Resumable.js v1 support, checkout [v0.1.0](https://github
-.com/AidasK/ng-resumable/tree/v0.1.0).
-Current ng-resumable works best with [Resumable.js v2](https://github.com/AidasK/resumable.js)
+If you are looking for Resumable.js v1 support, checkout [v0.1.0](https://github.com/resumable2/ng-resumable/tree/v0.1.0).
+Current ng-resumable works best with [Resumable.js v2](https://github.com/resumable2/resumable.js)
 
 
 How can I use it?
@@ -115,7 +114,7 @@ Events are listed on "ng-resumable-init" directive:
 
 How can i support older browsers?
 ============
-Go to https://github.com/AidasK/maybe-resumable.js
+Go to https://github.com/resumable2/maybe-resumable.js
 and add to your config:
 ````javascript
 var app = angular.module('app', ['ngResumable'])
