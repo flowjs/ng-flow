@@ -9,7 +9,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.0.7",
-    "resumable.js": "AidasK/resumable.js#Next"
+    "angular": "~1",
+    "resumable.js": "resumable2/resumable.js#master"
   }
 }
