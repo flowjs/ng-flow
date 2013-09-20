@@ -1,4 +1,3 @@
-'use strict';
 angular.module('ngResumable.btn', ['ngResumable.init'])
 .directive('ngResumableBtn', [function() {
   return {
@@ -7,7 +6,8 @@ angular.module('ngResumable.btn', ['ngResumable.init'])
     'require': '^ngResumableInit',
     'link': function(scope, element, attrs) {
       var isDirectory = attrs.hasOwnProperty('ngDirectory');
-      scope.$resumable.assignBrowse(element, isDirectory);
+      var isSingleFile = attrs.hasOwnProperty('ngSingleFile');
+      scope.$resumable.assignBrowse(element, isDirectory, isSingleFile);
     }
   };
 }]);
