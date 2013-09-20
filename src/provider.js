@@ -18,9 +18,12 @@ angular.module('ngResumable.provider', [])
   /**
    * Resumable, MaybeResumable or NotResumable
    * @name resumableFactoryProvider.factory
-   * @type {Object}
+   * @type {function}
+   * @return {Resumable}
    */
-  this.factory = null;
+  this.factory = function (options) {
+    return new Resumable(options);
+  };
 
   /**
    * Define the default events
@@ -42,13 +45,13 @@ angular.module('ngResumable.provider', [])
   };
 
   this.$get = function() {
-    var fn = this.factory || Resumable;
+    var fn = this.factory;
     var defaults = this.defaults;
     var events = this.events;
     return {
       'create': function(opts) {
         // combine default options with global options and options
-        var resumable = new fn(angular.extend({}, defaults, opts));
+        var resumable = fn(angular.extend({}, defaults, opts));
         angular.forEach(events, function (event) {
           resumable.on(event[0], event[1]);
         });

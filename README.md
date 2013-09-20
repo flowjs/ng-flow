@@ -77,7 +77,7 @@ var app = angular.module('app', ['ngResumable'])
       ...
     });
     // Can be used with different implementations of Resumable.js
-    // resumableFactoryProvider.factory = MaybeResumable;
+    // resumableFactoryProvider.factory = maybeResumable;
 }]);
 ````
 
@@ -119,7 +119,7 @@ and add to your config:
 ````javascript
 var app = angular.module('app', ['ngResumable'])
 .config(['resumableFactoryProvider', function (resumableFactoryProvider) {
-    resumableFactoryProvider.factory = MaybeResumable;
+    resumableFactoryProvider.factory = maybeResumable;
 }]);
 ````
 

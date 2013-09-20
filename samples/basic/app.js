@@ -19,5 +19,5 @@ var app = angular.module('app', ['ngResumable'])
     console.log('catchAll', arguments);
   });
   // Can be used with different implementations of Resumable.js
-  // resumableFactoryProvider.factory = MaybeResumable;
+  // resumableFactoryProvider.factory = maybeResumable;
 }]);
