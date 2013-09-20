@@ -1,14 +1,11 @@
-'use strict';
-angular.module('ngResumable.transfers', []).directive('ngResumableTransfers', [function() {
+angular.module('ngResumable.transfers', ['ngResumable.init'])
+.directive('ngResumableTransfers', [function() {
+  'use strict';
   return {
-    'restrict': 'EA',
     'scope': true,
+    'require': '^ngResumableInit',
     'link': function(scope) {
-      var resumable = scope.$resumable;
-      if (!resumable) {
-        throw 'directive called outside ngResumable scope';
-      }
-      scope.transfers = resumable.files;
+      scope.transfers = scope.$resumable.files;
     }
   };
 }]);

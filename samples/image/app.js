@@ -22,7 +22,3 @@ var app = angular.module('app', ['ngResumable'])
   // Can be used with different implementations of Resumable.js
   // resumableFactoryProvider.factory = MaybeResumable;
 }]);
-
-app.controller('MainCtrl', function ($scope) {
-
-});

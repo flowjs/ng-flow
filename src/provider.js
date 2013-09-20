@@ -1,4 +1,3 @@
-'use strict';
 /**
  * @description
  * var app = angular.module('App', ['ngResumable.provider'], function(resumableFactoryProvider){
@@ -6,7 +5,9 @@
  * });
  * @name resumableFactoryProvider
  */
-angular.module('ngResumable.provider', []).provider('resumableFactory', function() {
+angular.module('ngResumable.provider', [])
+.provider('resumableFactory', function() {
+  'use strict';
   /**
    * Define the default properties for resumable.js
    * @name resumableFactoryProvider.defaults

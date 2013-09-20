@@ -1,14 +1,10 @@
 'use strict';
-angular.module('ngResumable.img', [])
+angular.module('ngResumable.img', ['ngResumable.init'])
 .directive('ngResumableImg', [function() {
   return {
-    'restrict': 'EA',
     'scope': false,
+    'require': '^ngResumableInit',
     'link': function(scope, element, attrs) {
-      var resumable = scope.$resumable;
-      if (!resumable) {
-        throw 'directive called outside ngResumable scope';
-      }
       var file = attrs.ngResumableImg;
       scope.$watch(file, function (file) {
         if (!file) {

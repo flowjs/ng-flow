@@ -1,19 +1,18 @@
 'use strict';
-angular.module('ngResumable.drop', [])
+angular.module('ngResumable.drop', ['ngResumable.init'])
 .directive('ngResumableDrop', ['$timeout', function($timeout) {
   return {
-    'restrict': 'EA',
     'scope': false,
+    'require': '^ngResumableInit',
     'link': function(scope, element, attrs) {
-      var resumable = scope.$resumable;
-      if (!resumable) {
-        throw 'directive called outside ngResumable scope';
-      }
-      resumable.assignDrop(element);
+      scope.$resumable.assignDrop(element);
       var dragOverClass = attrs.ngDragOverClass;
       if (dragOverClass) {
         var promise;
         element.bind('dragover', function (event) {
+          if (!isFileDrag(event)) {
+            return ;
+          }
           element.addClass(dragOverClass);
           $timeout.cancel(promise);
           promise = $timeout(function () {
@@ -21,6 +20,15 @@ angular.module('ngResumable.drop', [])
           }, 100, false);
           event.preventDefault();
         });
+      }
+      function isFileDrag(dragEvent) {
+        var fileDrag = false;
+        angular.forEach(dragEvent.dataTransfer.types, function(val) {
+          if (val === 'Files') {
+            fileDrag = true;
+          }
+        });
+        return fileDrag;
       }
     }
   };
