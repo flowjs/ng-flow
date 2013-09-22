@@ -1,25 +1,38 @@
 <!doctype html>
-<html>
+<html ng-app="app">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Ng-resumable by resumable2</title>
+    <title>HTML5 file upload for angular.js</title>
+    <meta name="description"
+          content="Resumable.js html5 file upload extension on angular.js framework. No third party dependencies."/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/main.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/resumable.js/src/resumable.js"></script>
+    <script src="bower_components/ng-resumable/src/provider.js"></script>
+    <script src="bower_components/ng-resumable/src/directives/init.js"></script>
+    <script src="bower_components/ng-resumable/src/directives/btn.js"></script>
+    <script src="bower_components/ng-resumable/src/directives/drop.js"></script>
+    <script src="bower_components/ng-resumable/src/directives/img.js"></script>
+    <script src="bower_components/ng-resumable/src/directives/transfers.js"></script>
+    <script src="bower_components/ng-resumable/src/ng-resumable.js"></script>
+    <script src="javascripts/app.js"></script>
   </head>
-  <body>
+  <body >
     <div class="wrapper">
       <header>
         <h1>Ng-resumable</h1>
         <p>Resumable.js html5 file upload extension on angular.js framework</p>
 
         <p class="view"><a href="https://github.com/resumable2/ng-resumable">View the Project on GitHub <small>resumable2/ng-resumable</small></a></p>
-
 
         <ul>
           <li><a href="https://github.com/resumable2/ng-resumable/zipball/master">Download <strong>ZIP File</strong></a></li>
@@ -29,36 +42,104 @@
       </header>
       <section>
         <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to Ng-resumable Page.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>Ng-resumable documentation can be found here: <a href="https://github.com/resumable2/ng-resumable">https://github.com/resumable2/ng-resumable</a></p>
+<p>This library also depends on <a href="https://github.com/resumable2/resumable.js">https://github.com/resumable2/resumable.js</a> </p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="basic-example" class="anchor" href="#basic-example"><span class="octicon octicon-link"></span></a>Basic example:</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<div class="alert alert-warning">This is just an example of resumable.js. No files is actually uploaded.</div>
 
+<div ng-resumable-init>
+  <div class="drop" ng-resumable-drop ng-drag-over-class="drag-over">
+    <button class="btn" ng-resumable-btn>Upload File</button>
+    <button class="btn" ng-resumable-btn ng-directory>Upload Folder</button>
+    <b>OR</b>
+    Drag And Drop your file here
+  </div>
+
+  <br/>
+
+  <div class="well">
+    <a class="btn btn-small btn-success" ng-click="$resumable.upload()">Upload</a>
+    <a class="btn btn-small btn-danger" ng-click="$resumable.pause()">Pause all</a>
+    <a class="btn btn-small btn-info" ng-click="$resumable.cancel()">Cancel all</a>
+    <span class="label label-info">Total Size: {{$resumable.getSize()}}</span>
+  </div>
+  <table class="table table-hover table-bordered table-striped" ng-resumable-transfers>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Progress</th>
+      <th>Settings</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="file in transfers">
+      <td>{{file.name}}</td>
+      <td>
+        <div class="progress progress-striped" ng-class="{active: file.isUploading()}">
+          <div class="progress-bar" role="progressbar"
+               aria-valuenow="{{file.progress() * 100}}"
+               aria-valuemin="0"
+               aria-valuemax="100"
+               ng-style="{width: (file.progress() * 100) + '%'}">
+            <span class="sr-only">{{file.progress()}}% Complete</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="btn-group">
+          <a class="btn btn-xs btn-warning" ng-click="file.pause()" ng-if="!file.paused">
+            Pause
+          </a>
+          <a class="btn btn-xs btn-warning" ng-click="file.resume()" ng-if="file.paused">
+            Resume
+          </a>
+          <a class="btn btn-xs btn-danger" ng-click="file.cancel()">
+            Cancel
+          </a>
+          <a class="btn btn-xs btn-info" ng-click="file.retry()" ng-if="file.error">
+            Retry
+          </a>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr class="soften"/>
+
+<div ng-resumable-init="{singleFile:true}"
+ ng-file-added="{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] === 1"
+ ng-files-submitted="$resumable.upload()">
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="image-example" class="anchor" href="#image-example"><span class="octicon octicon-link"></span></a>Image example:</h3>
+<div class="thumbnail" ng-if="!$resumable.files.length">
+  <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+</div>
+<div class="thumbnail" ng-if="$resumable.files.length">
+  <img ng-resumable-img="$resumable.files[0]" />
+</div>
+<div>
+  <a href="#" class="btn btn-primary" ng-if="!$resumable.files.length" ng-resumable-btn>Select image</a>
+  <a href="#" class="btn btn-info" ng-if="$resumable.files.length" ng-resumable-btn>Change</a>
+  <a href="#" class="btn btn-danger" ng-if="$resumable.files.length"
+     ng-click="$resumable.cancel()">
+    Remove
+  </a>
+</div>
+<p>
+  Only PNG,GIF,JPG,JEPG files allowed.
+</p>
+</div>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/resumable2">resumable2</a></p>

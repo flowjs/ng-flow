@@ -1,0 +1,24 @@
+{
+  "name": "ng-resumable",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1",
+    "resumable.js": "resumable2/resumable.js#master"
+  },
+  "homepage": "https://github.com/resumable2/ng-resumable",
+  "_release": "master",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "2861994717f1b9372be315960b12fa254ed24201"
+  },
+  "_source": "git://github.com/resumable2/ng-resumable.git",
+  "_target": "master",
+  "_originalSource": "resumable2/ng-resumable"
+}
