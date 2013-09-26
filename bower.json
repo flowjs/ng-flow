@@ -10,6 +10,6 @@
   ],
   "dependencies": {
     "angular": "~1",
-    "resumable.js": "resumable2/resumable.js#master"
+    "resumable.js": "~2"
   }
 }
