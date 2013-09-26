@@ -1,5 +1,6 @@
 {
   "name": "ng-resumable",
+  "version": "1.0.0-beta",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -9,16 +10,16 @@
   ],
   "dependencies": {
     "angular": "~1",
-    "resumable.js": "resumable2/resumable.js#master"
+    "resumable.js": "~2"
   },
-  "homepage": "https://github.com/resumable2/ng-resumable",
-  "_release": "master",
+  "homepage": "https://github.com/AidasK/ng-resumable",
+  "_release": "1.0.0-beta",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "2861994717f1b9372be315960b12fa254ed24201"
+    "type": "version",
+    "tag": "v1.0.0-beta",
+    "commit": "f2a838278ca724a50e0d7574e12adf3ce296ae10"
   },
-  "_source": "git://github.com/resumable2/ng-resumable.git",
-  "_target": "master",
-  "_originalSource": "resumable2/ng-resumable"
+  "_source": "git://github.com/AidasK/ng-resumable.git",
+  "_target": "~1",
+  "_originalSource": "ng-resumable"
 }

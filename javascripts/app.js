@@ -9,7 +9,7 @@
 var app = angular.module('app', ['ngResumable'])
   .config(['resumableFactoryProvider', function (resumableFactoryProvider) {
     resumableFactoryProvider.defaults = {
-      target: '/',
+      target: '',
       permanentErrors: [500, 501],
       maxChunkRetries: 1,
       chunkRetryInterval: 5000,

@@ -6,7 +6,10 @@
 .drop.drag-over {
     background: darkseagreen;
 }
-.table .progress {
+.transfer-box {
+    margin-bottom: 5px;
+}
+.transfer-box .progress {
     margin-bottom: 0;
 }
 

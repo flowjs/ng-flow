@@ -52,7 +52,8 @@
 
 <div class="alert alert-warning">This is just an example of resumable.js. No files is actually uploaded.</div>
 
-<div ng-resumable-init>
+<div ng-resumable-init
+     ng-files-submitted="$resumable.upload()">
   <div class="drop" ng-resumable-drop ng-drag-over-class="drag-over">
     <button class="btn" ng-resumable-btn>Upload File</button>
     <button class="btn" ng-resumable-btn ng-directory>Upload Folder</button>
@@ -66,56 +67,44 @@
     <a class="btn btn-small btn-success" ng-click="$resumable.upload()">Upload</a>
     <a class="btn btn-small btn-danger" ng-click="$resumable.pause()">Pause all</a>
     <a class="btn btn-small btn-info" ng-click="$resumable.cancel()">Cancel all</a>
-    <span class="label label-info">Total Size: {{$resumable.getSize()}}</span>
+    <span class="label label-info">Total Size: {{$resumable.getSize()}}bytes</span>
   </div>
-  <table class="table table-hover table-bordered table-striped" ng-resumable-transfers>
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Progress</th>
-      <th>Settings</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="file in transfers">
-      <td>{{file.name}}</td>
-      <td>
-        <div class="progress progress-striped" ng-class="{active: file.isUploading()}">
-          <div class="progress-bar" role="progressbar"
-               aria-valuenow="{{file.progress() * 100}}"
-               aria-valuemin="0"
-               aria-valuemax="100"
-               ng-style="{width: (file.progress() * 100) + '%'}">
-            <span class="sr-only">{{file.progress()}}% Complete</span>
-          </div>
+
+  <div ng-resumable-transfers>
+
+    <div ng-repeat="file in transfers" class="transfer-box">
+      {{file.relativePath}} ({{file.size}}bytes)
+      <div class="progress progress-striped" ng-class="{active: file.isUploading()}">
+        <div class="progress-bar" role="progressbar"
+             aria-valuenow="{{file.progress() * 100}}"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             ng-style="{width: (file.progress() * 100) + '%'}">
+          <span class="sr-only">{{file.progress()}}% Complete</span>
         </div>
-      </td>
-      <td>
-        <div class="btn-group">
-          <a class="btn btn-xs btn-warning" ng-click="file.pause()" ng-if="!file.paused">
-            Pause
-          </a>
-          <a class="btn btn-xs btn-warning" ng-click="file.resume()" ng-if="file.paused">
-            Resume
-          </a>
-          <a class="btn btn-xs btn-danger" ng-click="file.cancel()">
-            Cancel
-          </a>
-          <a class="btn btn-xs btn-info" ng-click="file.retry()" ng-if="file.error">
-            Retry
-          </a>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+      </div>
+      <div class="btn-group">
+        <a class="btn btn-xs btn-warning" ng-click="file.pause()" ng-if="!file.paused && file.isUploading()">
+          Pause
+        </a>
+        <a class="btn btn-xs btn-warning" ng-click="file.resume()" ng-if="file.paused">
+          Resume
+        </a>
+        <a class="btn btn-xs btn-danger" ng-click="file.cancel()">
+          Cancel
+        </a>
+        <a class="btn btn-xs btn-info" ng-click="file.retry()" ng-if="file.error">
+          Retry
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <hr class="soften"/>
 
 <div ng-resumable-init="{singleFile:true}"
- ng-file-added="{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] === 1"
- ng-files-submitted="$resumable.upload()">
+ ng-file-added="{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] === 1">
 <h3>
 <a name="image-example" class="anchor" href="#image-example"><span class="octicon octicon-link"></span></a>Image example:</h3>
 <div class="thumbnail" ng-if="!$resumable.files.length">

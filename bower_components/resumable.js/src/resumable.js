@@ -110,7 +110,12 @@
     this.onDrop = function (event) {
       event.stopPropagation();
       event.preventDefault();
-      $.addFiles(event.dataTransfer.files, event);
+      var dataTransfer = event.dataTransfer;
+      if (dataTransfer.items && dataTransfer.items[0].webkitGetAsEntry) {
+        $.webkitReadDataTransfer(event);
+      } else {
+        $.addFiles(dataTransfer.files, event);
+      }
     };
 
     /**
@@ -169,6 +174,45 @@
       return !preventDefault;
     },
 
+    /**
+     * Read webkit dataTransfer object
+     * @param event
+     */
+    webkitReadDataTransfer: function (event) {
+      var $ = this;
+      each(event.dataTransfer.items, function (item) {
+        var entry = item.webkitGetAsEntry();
+        if (!entry) {
+          return ;
+        }
+        if (entry.isFile) {
+          // due to a bug in Chrome's File System API impl - #149735
+          fileReadSuccess(item.getAsFile(), entry.fullPath);
+        } else {
+          entry.createReader().readEntries(readSuccess, readError);
+        }
+      });
+      function readSuccess(entries) {
+        each(entries, function(entry) {
+          if (entry.isFile) {
+            var fullPath = entry.fullPath;
+            entry.file(function (file) {
+              fileReadSuccess(file, fullPath);
+            }, readError);
+          } else if (entry.isDirectory) {
+            entry.createReader().readEntries(readSuccess, readError);
+          }
+        });
+      }
+      function fileReadSuccess(file, fullPath) {
+        // relative path should not start with "/"
+        file.relativePath = fullPath.substring(1);
+        $.addFile(file, event);
+      }
+      function readError(fileError) {
+        throw fileError;
+      }
+    },
 
     /**
      * Generate unique identifier for a file
@@ -182,9 +226,8 @@
         return custom(file);
       }
       // Some confusion in different versions of Firefox
-      var relativePath = file.webkitRelativePath || file.fileName || file.name;
-      var size = file.size;
-      return size + '-' + relativePath.replace(/[^0-9a-zA-Z_-]/img, '');
+      var relativePath = file.relativePath || file.webkitRelativePath || file.fileName || file.name;
+      return file.size + '-' + relativePath.replace(/[^0-9a-zA-Z_-]/img, '');
     },
 
     /**
@@ -451,7 +494,7 @@
       each(fileList, function (file) {
         // Directories have size `0` and name `.`
         // Ignore already added files
-        if (!(!file.size && (file.name === '.' || file.fileName === '.')) &&
+        if (!(file.size % 4096 === 0 && (file.name === '.' || file.fileName === '.')) &&
           !this.getFromUniqueIdentifier(this.generateUniqueIdentifier(file))) {
           var f = new ResumableFile(this, file);
           if (this.fire('fileAdded', f, event)) {
@@ -557,7 +600,7 @@
      * Relative file path
      * @type {string}
      */
-    this.relativePath = file.webkitRelativePath || this.name;
+    this.relativePath = file.relativePath || file.webkitRelativePath || this.name;
 
     /**
      * File unique identifier
@@ -656,8 +699,7 @@
           break;
         case 'error':
           this.error = true;
-          this.abort();
-          this.chunks = [];
+          this.abort(true);
           this.resumableObj.fire('fileError', this, message);
           this.resumableObj.fire('error', message, this);
           break;
@@ -699,10 +741,14 @@
      * Abort current upload
      * @function
      */
-    abort: function () {
+    abort: function (reset) {
       this.currentSpeed = 0;
       this.averageSpeed = 0;
-      each(this.chunks, function (c) {
+      var chunks = this.chunks;
+      if (reset) {
+        this.chunks = [];
+      }
+      each(chunks, function (c) {
         if (c.status() === 'uploading') {
           c.abort();
           this.resumableObj.uploadNextChunk();
@@ -732,10 +778,9 @@
      * @function
      */
     bootstrap: function () {
-      this.abort();
+      this.abort(true);
       this.error = false;
       // Rebuild stack of chunks from file
-      this.chunks = [];
       this._prevProgress = 0;
       var round = this.resumableObj.opts.forceChunkSize ? Math.ceil : Math.floor;
       var chunks = Math.max(
@@ -756,6 +801,10 @@
     progress: function () {
       if (this.error) {
         return 1;
+      }
+      if (this.chunks.length === 1) {
+        this._prevProgress = Math.max(this._prevProgress, this.chunks[0].progress());
+        return this._prevProgress;
       }
       // Sum up progress across everything
       var bytesLoaded = 0;
@@ -1267,18 +1316,21 @@
    * @param {Object=} context Object to become context (`this`) for the iterator function.
    */
   function each(obj, callback, context) {
+    if (!obj) {
+      return ;
+    }
     var key;
     // Is Array?
     if (typeof(obj.length) !== 'undefined') {
       for (key = 0; key < obj.length; key++) {
         if (callback.call(context, obj[key], key) === false) {
-          return;
+          return ;
         }
       }
     } else {
       for (key in obj) {
         if (obj.hasOwnProperty(key) && callback.call(context, obj[key], key) === false) {
-          return;
+          return ;
         }
       }
     }

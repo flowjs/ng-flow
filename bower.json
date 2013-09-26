@@ -16,6 +16,6 @@
   ],
   "dependencies": {
     "angular": "~1",
-    "ng-resumable": "resumable2/ng-resumable#master"
+    "ng-resumable": "~1"
   }
 }

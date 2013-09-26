@@ -6,6 +6,7 @@ Resumable.js extensions for angular.js framework, no 3rd party JS dependencies r
 If you are looking for Resumable.js v1 support, checkout [v0.1.0](https://github.com/resumable2/ng-resumable/tree/v0.1.0).
 Current ng-resumable works best with [Resumable.js v2](https://github.com/resumable2/resumable.js)
 
+Demo: http://resumable2.github.io/ng-resumable/
 
 How can I use it?
 ============
