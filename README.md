@@ -1,3 +1,5 @@
+# Lets rename this library! [Click to vote](https://docs.google.com/forms/d/1k_xUuXWbWbFZlCJDb43vAltcrJzighrdpk8-z8KU2ys/viewform)
+
 What is ng-resumable?
 ============
 
@@ -9,7 +11,7 @@ Current ng-resumable works best with [Resumable.js v2](https://github.com/resuma
 Demo: http://resumable2.github.io/ng-resumable/
 
 ## How can I install it?
-1. Get the library:
+1) Get the library:
 
 use bower:
         
@@ -21,7 +23,7 @@ or use git clone
         
         git clone https://github.com/resumable2/ng-resumable
                 
-2. Add the module to your app as a dependency:
+2) Add the module to your app as a dependency:
 
         angular.module('app', ['ngResumable'])
         
