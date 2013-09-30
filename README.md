@@ -9,14 +9,21 @@ Current ng-resumable works best with [Resumable.js v2](https://github.com/resuma
 Demo: http://resumable2.github.io/ng-resumable/
 
 ## How can I install it?
+1. Get the library:
+
 use bower:
-
-        bower install ng-resumable#~1
-use cdn, look for available packages at http://www.jsdelivr.com/#!resumable
         
+        bower install ng-resumable#~1
+                
+use cdn, look for available packages at http://www.jsdelivr.com/#!resumable
+                
 or use git clone
-
+        
         git clone https://github.com/resumable2/ng-resumable
+                
+2. Add the module to your app as a dependency:
+
+        angular.module('app', ['ngResumable'])
         
 How can I use it?
 ============
