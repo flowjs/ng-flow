@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>HTML5 file upload for angular.js</title>
     <meta name="description"
-          content="Resumable.js html5 file upload extension on angular.js framework. No third party dependencies."/>
+          content="Flow.js html5 file upload extension on angular.js framework. No third party dependencies."/>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="stylesheets/styles.css">
@@ -16,47 +16,47 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/resumable.js/src/resumable.js"></script>
-    <script src="bower_components/ng-resumable/src/provider.js"></script>
-    <script src="bower_components/ng-resumable/src/directives/init.js"></script>
-    <script src="bower_components/ng-resumable/src/directives/btn.js"></script>
-    <script src="bower_components/ng-resumable/src/directives/drop.js"></script>
-    <script src="bower_components/ng-resumable/src/directives/img.js"></script>
-    <script src="bower_components/ng-resumable/src/directives/transfers.js"></script>
-    <script src="bower_components/ng-resumable/src/ng-resumable.js"></script>
+    <script src="bower_components/flow.js/src/flow.js"></script>
+    <script src="bower_components/ng-flow/src/provider.js"></script>
+    <script src="bower_components/ng-flow/src/directives/init.js"></script>
+    <script src="bower_components/ng-flow/src/directives/btn.js"></script>
+    <script src="bower_components/ng-flow/src/directives/drop.js"></script>
+    <script src="bower_components/ng-flow/src/directives/img.js"></script>
+    <script src="bower_components/ng-flow/src/directives/transfers.js"></script>
+    <script src="bower_components/ng-flow/src/ng-flow.js"></script>
     <script src="javascripts/app.js"></script>
   </head>
   <body >
     <div class="wrapper">
       <header>
-        <h1>Ng-resumable</h1>
-        <p>Resumable.js html5 file upload extension on angular.js framework</p>
+        <h1>Ng-flow</h1>
+        <p>Flow.js html5 file upload extension on angular.js framework</p>
 
-        <p class="view"><a href="https://github.com/resumable2/ng-resumable">View the Project on GitHub <small>resumable2/ng-resumable</small></a></p>
+        <p class="view"><a href="https://github.com/flowjs/ng-flow">View the Project on GitHub <small>flowjs/ng-flow</small></a></p>
 
         <ul>
-          <li><a href="https://github.com/resumable2/ng-resumable/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/resumable2/ng-resumable/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/resumable2/ng-resumable">View On <strong>GitHub</strong></a></li>
+          <li><a href="https://github.com/flowjs/ng-flow/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/flowjs/ng-flow/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/flowjs/ng-flow">View On <strong>GitHub</strong></a></li>
         </ul>
       </header>
       <section>
         <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to Ng-resumable Page.</h3>
+<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to Ng-flow Page.</h3>
 
-<p>Ng-resumable documentation can be found here: <a href="https://github.com/resumable2/ng-resumable">https://github.com/resumable2/ng-resumable</a></p>
-<p>This library also depends on <a href="https://github.com/resumable2/resumable.js">https://github.com/resumable2/resumable.js</a> </p>
+<p>Ng-flow documentation can be found here: <a href="https://github.com/flowjs/ng-flow">https://github.com/flowjs/ng-flow</a></p>
+<p>This library also depends on <a href="https://github.com/flowjs/flow.js">https://github.com/flowjs/flow.js</a> </p>
 
 <h3>
 <a name="basic-example" class="anchor" href="#basic-example"><span class="octicon octicon-link"></span></a>Basic example:</h3>
 
-<div class="alert alert-warning">This is just an example of resumable.js. No files is actually uploaded.</div>
+<div class="alert alert-warning">This is just an example of flow.js. No files is actually uploaded.</div>
 
-<div ng-resumable-init
-     ng-files-submitted="$resumable.upload()">
-  <div class="drop" ng-resumable-drop ng-drag-over-class="drag-over">
-    <button class="btn" ng-resumable-btn>Upload File</button>
-    <button class="btn" ng-resumable-btn ng-directory>Upload Folder</button>
+<div ng-flow-init
+     ng-files-submitted="$flow.upload()">
+  <div class="drop" ng-flow-drop ng-drag-over-class="drag-over">
+    <button class="btn" ng-flow-btn>Upload File</button>
+    <button class="btn" ng-flow-btn ng-directory>Upload Folder</button>
     <b>OR</b>
     Drag And Drop your file here
   </div>
@@ -64,13 +64,13 @@
   <br/>
 
   <div class="well">
-    <a class="btn btn-small btn-success" ng-click="$resumable.upload()">Upload</a>
-    <a class="btn btn-small btn-danger" ng-click="$resumable.pause()">Pause all</a>
-    <a class="btn btn-small btn-info" ng-click="$resumable.cancel()">Cancel all</a>
-    <span class="label label-info">Total Size: {{$resumable.getSize()}}bytes</span>
+    <a class="btn btn-small btn-success" ng-click="$flow.resume()">Resume all</a>
+    <a class="btn btn-small btn-danger" ng-click="$flow.pause()">Pause all</a>
+    <a class="btn btn-small btn-info" ng-click="$flow.cancel()">Cancel all</a>
+    <span class="label label-info">Total Size: {{$flow.getSize()}}bytes</span>
   </div>
 
-  <div ng-resumable-transfers>
+  <div ng-flow-transfers>
 
     <div ng-repeat="file in transfers" class="transfer-box">
       {{file.relativePath}} ({{file.size}}bytes)
@@ -103,21 +103,21 @@
 
 <hr class="soften"/>
 
-<div ng-resumable-init="{singleFile:true}"
+<div ng-flow-init="{singleFile:true}"
  ng-file-added="{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] === 1">
 <h3>
 <a name="image-example" class="anchor" href="#image-example"><span class="octicon octicon-link"></span></a>Image example:</h3>
-<div class="thumbnail" ng-if="!$resumable.files.length">
+<div class="thumbnail" ng-if="!$flow.files.length">
   <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
 </div>
-<div class="thumbnail" ng-if="$resumable.files.length">
-  <img ng-resumable-img="$resumable.files[0]" />
+<div class="thumbnail" ng-if="$flow.files.length">
+  <img ng-flow-img="$flow.files[0]" />
 </div>
 <div>
-  <a href="#" class="btn btn-primary" ng-if="!$resumable.files.length" ng-resumable-btn>Select image</a>
-  <a href="#" class="btn btn-info" ng-if="$resumable.files.length" ng-resumable-btn>Change</a>
-  <a href="#" class="btn btn-danger" ng-if="$resumable.files.length"
-     ng-click="$resumable.cancel()">
+  <a href="#" class="btn btn-primary" ng-if="!$flow.files.length" ng-flow-btn>Select image</a>
+  <a href="#" class="btn btn-info" ng-if="$flow.files.length" ng-flow-btn>Change</a>
+  <a href="#" class="btn btn-danger" ng-if="$flow.files.length"
+     ng-click="$flow.cancel()">
     Remove
   </a>
 </div>
@@ -131,7 +131,7 @@
 
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/resumable2">resumable2</a></p>
+        <p>This project is maintained by <a href="https://github.com/flowjs">flowjs</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
@@ -142,7 +142,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-44230881-1', 'resumable2.github.io');
+  ga('create', 'UA-44230881-1', 'flowjs.github.io');
   ga('send', 'pageview');
 
 </script>

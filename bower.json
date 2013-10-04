@@ -1,7 +1,7 @@
 {
-  "name": "ng-resumable-page",
+  "name": "ng-flow-page",
   "version": "0.1.0",
-  "homepage": "https://github.com/resumable2/ng-resumable",
+  "homepage": "https://github.com/flowjs/ng-flow",
   "authors": [
     "Aidas Klimas"
   ],
@@ -16,6 +16,6 @@
   ],
   "dependencies": {
     "angular": "~1",
-    "ng-resumable": "~1"
+    "ng-flow": "~1"
   }
 }
