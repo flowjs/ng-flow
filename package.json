@@ -1,21 +1,25 @@
 {
-  "name": "ng-resumable",
-  "version": "1.0.0-beta",
-  "description": "Resumable.js html5 file upload extension on angular.js framework",
-  "main": "src/ng-resumable.js",
+  "name": "ng-flow",
+  "version": "1.0.0-beta2",
+  "description": "Flow.js html5 file upload extension on angular.js framework",
+  "main": "src/ng-flow.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/resumable2/ng-resumable.git"
+    "url": "git://github.com/flowjs/ng-flow.git"
   },
   "keywords": [
+    "flow.js",
+    "flow",
     "resumable.js",
     "resumable",
     "angular",
     "angular.js",
-    "angular-upload"
+    "angular-upload",
+    "file upload",
+    "upload"
   ],
   "author": "Aidas Klimas",
   "license": "MIT",

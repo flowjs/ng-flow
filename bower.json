@@ -1,6 +1,6 @@
 {
-  "name": "ng-resumable",
-  "version": "1.0.0-beta",
+  "name": "ng-flow",
+  "version": "1.0.0-beta2",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -10,6 +10,6 @@
   ],
   "dependencies": {
     "angular": "~1",
-    "resumable.js": "~2"
+    "flow.js": "~2"
   }
 }

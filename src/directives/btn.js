@@ -1,13 +1,13 @@
-angular.module('ngResumable.btn', ['ngResumable.init'])
-.directive('ngResumableBtn', [function() {
+angular.module('ngFlow.btn', ['ngFlow.init'])
+.directive('ngFlowBtn', [function() {
   return {
     'restrict': 'EA',
     'scope': false,
-    'require': '^ngResumableInit',
+    'require': '^ngFlowInit',
     'link': function(scope, element, attrs) {
       var isDirectory = attrs.hasOwnProperty('ngDirectory');
       var isSingleFile = attrs.hasOwnProperty('ngSingleFile');
-      scope.$resumable.assignBrowse(element, isDirectory, isSingleFile);
+      scope.$flow.assignBrowse(element, isDirectory, isSingleFile);
     }
   };
 }]);

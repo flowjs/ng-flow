@@ -6,9 +6,9 @@
  * @name app
  * @type {angular.Module}
  */
-var app = angular.module('app', ['ngResumable'])
-.config(['resumableFactoryProvider', function (resumableFactoryProvider) {
-  resumableFactoryProvider.defaults = {
+var app = angular.module('app', ['ngFlow'])
+.config(['flowFactoryProvider', function (flowFactoryProvider) {
+  flowFactoryProvider.defaults = {
     target: 'upload.php',
     permanentErrors: [404, 500, 501],
     maxChunkRetries: 1,
@@ -16,9 +16,9 @@ var app = angular.module('app', ['ngResumable'])
     simultaneousUploads: 4,
     singleFile: true
   };
-  resumableFactoryProvider.on('catchAll', function (event) {
+  flowFactoryProvider.on('catchAll', function (event) {
     console.log('catchAll', arguments);
   });
-  // Can be used with different implementations of Resumable.js
-  // resumableFactoryProvider.factory = maybeResumable;
+  // Can be used with different implementations of Flow.js
+  // flowFactoryProvider.factory = fustyFlowFactory;
 }]);

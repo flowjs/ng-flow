@@ -1,10 +1,10 @@
 'use strict';
-angular.module('ngResumable.init', ['ngResumable.provider'])
-.controller('NgResumableCtrl', ['$scope', '$attrs', '$parse', 'resumableFactory',
-function ($scope, $attrs, $parse, resumableFactory) {
-  // create the resumable object
-  var options = angular.extend({}, $scope.$eval($attrs.ngResumableInit));
-  var resumable = resumableFactory.create(options);
+angular.module('ngFlow.init', ['ngFlow.provider'])
+.controller('NgFlowCtrl', ['$scope', '$attrs', '$parse', 'flowFactory',
+function ($scope, $attrs, $parse, flowFactory) {
+  // create the flow object
+  var options = angular.extend({}, $scope.$eval($attrs.ngFlowInit));
+  var flow = flowFactory.create(options);
 
   var events = {
     fileSuccess: ['$file', '$message'],
@@ -30,7 +30,7 @@ function ($scope, $attrs, $parse, resumableFactory) {
       return ;
     }
     var fn = $parse($attrs[attr]);
-    resumable.on(eventName, function() {
+    flow.on(eventName, function() {
       var funcArgs = arguments;
       var args = {};
       angular.forEach(eventArgs, function(value, key) {
@@ -40,18 +40,18 @@ function ($scope, $attrs, $parse, resumableFactory) {
     });
   });
 
-  resumable.on('catchAll', function (event) {
+  flow.on('catchAll', function (event) {
     if ({
       'progress':1, 'filesSubmitted':1, 'fileSuccess': 1, 'fileError': 1
     }[event]) {
       $scope.$apply();
     }
   });
-  $scope.$resumable = resumable;
+  $scope.$flow = flow;
 }])
-.directive('ngResumableInit', [function() {
+.directive('ngFlowInit', [function() {
   return {
     scope: true,
-    controller: 'NgResumableCtrl'
+    controller: 'NgFlowCtrl'
   };
 }]);

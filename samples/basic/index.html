@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-resumable-init>
+<html ng-app="app" ng-flow-init>
 <head>
   <title>basic</title>
   <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../bower_components/resumable.js/src/resumable.js"></script>
-  <script src="../../src/ng-resumable.js"></script>
+  <script src="../../bower_components/flow.js/src/flow.js"></script>
+  <script src="../../src/ng-flow.js"></script>
   <script src="../../src/provider.js"></script>
   <script src="../../src/directives/btn.js"></script>
   <script src="../../src/directives/drop.js"></script>
@@ -18,21 +18,21 @@
 <body>
 
 <div class="container">
-  <h1>ng-resumable basic example</h1>
+  <h1>ng-flow basic example</h1>
   <hr class="soften"/>
 
   <div class="row">
     <div class="span6">
       <h2>Inputs:</h2>
 
-      <input type="file" ng-resumable-btn/>
-      <input type="file" ng-resumable-btn ng-directory/>
+      <input type="file" ng-flow-btn/>
+      <input type="file" ng-flow-btn ng-directory/>
     </div>
     <div class="span6">
       <h2>Buttons:</h2>
 
-      <button class="btn" ng-resumable-btn><i class="icon icon-file"></i>Upload File</button>
-      <button class="btn" ng-resumable-btn ng-directory><i class="icon icon-folder-open"></i>Upload
+      <button class="btn" ng-flow-btn><i class="icon icon-file"></i>Upload File</button>
+      <button class="btn" ng-flow-btn ng-directory><i class="icon icon-folder-open"></i>Upload
         Folder
       </button>
     </div>
@@ -42,13 +42,13 @@
   <h2>Transfers:</h2>
 
   <p>
-    <a class="btn btn-small btn-success" ng-click="$resumable.upload()">Upload</a>
-    <a class="btn btn-small btn-danger" ng-click="$resumable.pause()">Pause</a>
-    <a class="btn btn-small btn-info" ng-click="$resumable.cancel()">Cancel</a>
-    <span class="label label-info">Size: {{$resumable.getSize()}}</span>
-    <span class="label label-info">Is Uploading: {{$resumable.isUploading()}}</span>
+    <a class="btn btn-small btn-success" ng-click="$flow.upload()">Upload</a>
+    <a class="btn btn-small btn-danger" ng-click="$flow.pause()">Pause</a>
+    <a class="btn btn-small btn-info" ng-click="$flow.cancel()">Cancel</a>
+    <span class="label label-info">Size: {{$flow.getSize()}}</span>
+    <span class="label label-info">Is Uploading: {{$flow.isUploading()}}</span>
   </p>
-  <table class="table table-hover table-bordered table-striped" ng-resumable-transfers>
+  <table class="table table-hover table-bordered table-striped" ng-flow-transfers>
     <thead>
     <tr>
       <th>#</th>
@@ -98,7 +98,7 @@
 
   <hr class="soften"/>
 
-  <div class="alert" ng-resumable-drop ng-drag-over-class="alert-success">
+  <div class="alert" ng-flow-drop ng-drag-over-class="alert-success">
     Drag And Drop your file here
   </div>
 </div>

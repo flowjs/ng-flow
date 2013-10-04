@@ -1,70 +1,67 @@
-# Lets rename this library! [Click to vote](https://docs.google.com/forms/d/1k_xUuXWbWbFZlCJDb43vAltcrJzighrdpk8-z8KU2ys/viewform)
-
-What is ng-resumable?
+What is ng-flow?
 ============
 
-Resumable.js extensions for angular.js framework, no 3rd party JS dependencies required!
+Flow.js extensions for angular.js framework, no 3rd party JS dependencies required!
 
-If you are looking for Resumable.js v1 support, checkout [v0.1.0](https://github.com/resumable2/ng-resumable/tree/v0.1.0).
-Current ng-resumable works best with [Resumable.js v2](https://github.com/resumable2/resumable.js)
+ng-flow extension is based on [Flow.js](https://github.com/flowjs/flow.js) library.
 
-Demo: http://resumable2.github.io/ng-resumable/
+Demo: http://flowjs.github.io/ng-flow/
 
 ## How can I install it?
 1) Get the library:
 
 use bower:
         
-        bower install ng-resumable#~1
+        bower install ng-flow#~1
                 
-use cdn, look for available packages at http://www.jsdelivr.com/#!resumable
+use cdn, look for available packages at http://www.jsdelivr.com/#!flow
                 
 or use git clone
         
-        git clone https://github.com/resumable2/ng-resumable
+        git clone https://github.com/flowjs/ng-flow
                 
 2) Add the module to your app as a dependency:
 
-        angular.module('app', ['ngResumable'])
+        angular.module('app', ['ngFlow'])
         
 How can I use it?
 ============
 
-First of all wrap places there you are going to use Resumable.js
+First of all wrap places there you are going to use Flow.js
 ````html
-<div ng-resumable-init> 
-    ... other ng-resumable directives goes here ...
+<div ng-flow-init>
+    ... other ng-flow directives goes here ...
 </div>
 ````
-This directive is going to add $resumable variable to current scope.
-Also this directive can be nested, because $resumable variable is going to be overriden.
-$resumable is instance of Resumable.
+This directive is going to add $flow variable to current scope.
+Also this directive can be nested, because $flow variable is going to be overriden.
+$flow is instance of Flow.
 
 
 Secondly you need to assign some upload buttons:
 ````html
-<input type="file" ng-resumable-btn />
-<input type="file" ng-resumable-btn ng-directory />
+<input type="file" ng-flow-btn />
+<input type="file" ng-flow-btn ng-directory />
 ````
 First button is for normal uploads and second is for directory uploads.
 
 
-Now you need to display uploaded files, this can be done with "ng-resumable-transfers" directive.
-This directive will assign transfers variable to the scope. This variable is a reference to Resumable.files array.
+Now you need to display uploaded files, this can be done with "ng-flow-transfers" directive.
+This directive will assign transfers variable to the scope. This variable is a reference to Flow.files array.
 ````html
 <tr ng-repeat="file in transfers">
     <td>{{$index+1}}</td>
     <td>{{file.name}}</td>
 </tr>
 ````
-file is instance of ResumableFile.
+file is instance of FlowFile.
 
 How can i drop files?
 ============
 
-Use ng-resumable-drop directive:
+Use ng-flow-drop directive:
 ````html
-<div class="alert" ng-resumable-drop ng-drag-over-class="alert-success">
+<div class="alert" ng-flow-drop ng-drag-over-class="alert-success">
     Drag And Drop your file here
 </div>
 ````
@@ -73,37 +70,37 @@ You can optionally set class, then file is over the element, with ng-drag-over-c
 How can i preview uploaded image?
 ============
 
-Use ng-resumable-img directive:
+Use ng-flow-img directive:
 ````html
-<img ng-resumable-img="$resumable.files[0]" />
+<img ng-flow-img="$flow.files[0]" />
 ````
 Image will be automatically updated once file is added. No need to start upload.
 
 
-How can i set options for resumable.js? 
+How can i set options for flow.js?
 ============
 
 Use config:
 ````javascript
-var app = angular.module('app', ['ngResumable'])
-.config(['resumableFactoryProvider', function (resumableFactoryProvider) {
-    resumableFactoryProvider.defaults = {
+var app = angular.module('app', ['ngFlow'])
+.config(['flowFactoryProvider', function (flowFactoryProvider) {
+    flowFactoryProvider.defaults = {
         target: '/upload',
         permanentErrors:[404, 500, 501],
         minFileSize: 0
     };
     // You can also set default events:
-    resumableFactoryProvider.on('catchAll', function (event) {
+    flowFactoryProvider.on('catchAll', function (event) {
       ...
     });
-    // Can be used with different implementations of Resumable.js
-    // resumableFactoryProvider.factory = maybeResumable;
+    // Can be used with different implementations of Flow.js
+    // flowFactoryProvider.factory = fustyFlowFactory;
 }]);
 ````
 
-also can be configured on "ng-resumable-init" directive:
+also can be configured on "ng-flow-init" directive:
 ````html
-<div ng-resumable-init="{target:'/uploader'}">
+<div ng-flow-init="{target:'/uploader'}">
 
 </div>
 ````
@@ -112,9 +109,9 @@ also can be configured on "ng-resumable-init" directive:
 How can i catch events?
 ============
 
-Events are listed on "ng-resumable-init" directive:
+Events are listed on "ng-flow-init" directive:
 ````html
-<div ng-resumable-init 
+<div ng-flow-init
       ng-file-success=" ... properties '$file', '$message' can be accessed ... "
       ng-file-progress=" ... property '$file' can be accessed ... "
       ng-file-added=" ... properties '$file', '$event' can be accessed ... "
@@ -134,19 +131,19 @@ Events are listed on "ng-resumable-init" directive:
 
 How can i support older browsers?
 ============
-Go to https://github.com/resumable2/maybe-resumable.js
+Go to https://github.com/flowjs/fusty-flow.js
 and add to your config:
 ````javascript
-var app = angular.module('app', ['ngResumable'])
-.config(['resumableFactoryProvider', function (resumableFactoryProvider) {
-    resumableFactoryProvider.factory = maybeResumable;
+var app = angular.module('app', ['ngFlow'])
+.config(['flowFactoryProvider', function (flowFactoryProvider) {
+    flowFactoryProvider.factory = fustyFlowFactory;
 }]);
 ````
 
 Need example?
 ============
-Clone this repository and go to "ng-resumable/samples/basic/index.html".
-Single image upload "ng-resumable/samples/image/index.html".
+Clone this repository and go to "ng-flow/samples/basic/index.html".
+Single image upload "ng-flow/samples/image/index.html".
 
 
 Contribution

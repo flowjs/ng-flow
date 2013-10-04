@@ -1,11 +1,11 @@
 'use strict';
-angular.module('ngResumable.img', ['ngResumable.init'])
-.directive('ngResumableImg', [function() {
+angular.module('ngFlow.img', ['ngFlow.init'])
+.directive('ngFlowImg', [function() {
   return {
     'scope': false,
-    'require': '^ngResumableInit',
+    'require': '^ngFlowInit',
     'link': function(scope, element, attrs) {
-      var file = attrs.ngResumableImg;
+      var file = attrs.ngFlowImg;
       scope.$watch(file, function (file) {
         if (!file) {
           return ;

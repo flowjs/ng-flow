@@ -1,11 +1,11 @@
-angular.module('ngResumable.transfers', ['ngResumable.init'])
-.directive('ngResumableTransfers', [function() {
+angular.module('ngFlow.transfers', ['ngFlow.init'])
+.directive('ngFlowTransfers', [function() {
   'use strict';
   return {
     'scope': true,
-    'require': '^ngResumableInit',
+    'require': '^ngFlowInit',
     'link': function(scope) {
-      scope.transfers = scope.$resumable.files;
+      scope.transfers = scope.$flow.files;
     }
   };
 }]);

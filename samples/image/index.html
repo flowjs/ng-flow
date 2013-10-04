@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-resumable-init
+<html ng-app="app" ng-flow-init
       ng-file-added="$file.getExtension() == 'png'"
-      ng-files-submitted="$resumable.upload()">
+      ng-files-submitted="$flow.upload()">
 <head>
   <title>Image</title>
   <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../bower_components/resumable.js/src/resumable.js"></script>
-  <script src="../../src/ng-resumable.js"></script>
+  <script src="../../bower_components/flow.js/src/flow.js"></script>
+  <script src="../../src/ng-flow.js"></script>
   <script src="../../src/provider.js"></script>
   <script src="../../src/directives/btn.js"></script>
   <script src="../../src/directives/drop.js"></script>
@@ -25,21 +25,21 @@
 <body>
 
 <div class="container">
-  <h1>ng-resumable image example</h1>
+  <h1>ng-flow image example</h1>
   <hr class="soften"/>
 
   <div>
-    <div class="thumbnail" ng-hide="$resumable.files.length">
+    <div class="thumbnail" ng-hide="$flow.files.length">
       <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
     </div>
-    <div class="thumbnail" ng-show="$resumable.files.length">
-      <img ng-resumable-img="$resumable.files[0]" />
+    <div class="thumbnail" ng-show="$flow.files.length">
+      <img ng-flow-img="$flow.files[0]" />
     </div>
     <div>
-      <a href="#" class="btn" ng-hide="$resumable.files.length" ng-resumable-btn>Select image</a>
-      <a href="#" class="btn" ng-show="$resumable.files.length" ng-resumable-btn>Change</a>
-      <a href="#" class="btn btn-danger" ng-show="$resumable.files.length"
-         ng-click="$resumable.cancel()">
+      <a href="#" class="btn" ng-hide="$flow.files.length" ng-flow-btn>Select image</a>
+      <a href="#" class="btn" ng-show="$flow.files.length" ng-flow-btn>Change</a>
+      <a href="#" class="btn btn-danger" ng-show="$flow.files.length"
+         ng-click="$flow.cancel()">
         Remove
       </a>
     </div>

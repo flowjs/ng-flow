@@ -1,33 +1,33 @@
 /**
  * @description
- * var app = angular.module('App', ['ngResumable.provider'], function(resumableFactoryProvider){
- *    resumableFactoryProvider.defaults = {target: '/'};
+ * var app = angular.module('App', ['ngFlow.provider'], function(flowFactoryProvider){
+ *    flowFactoryProvider.defaults = {target: '/'};
  * });
- * @name resumableFactoryProvider
+ * @name flowFactoryProvider
  */
-angular.module('ngResumable.provider', [])
-.provider('resumableFactory', function() {
+angular.module('ngFlow.provider', [])
+.provider('flowFactory', function() {
   'use strict';
   /**
-   * Define the default properties for resumable.js
-   * @name resumableFactoryProvider.defaults
+   * Define the default properties for flow.js
+   * @name flowFactoryProvider.defaults
    * @type {Object}
    */
   this.defaults = {};
 
   /**
-   * Resumable, MaybeResumable or NotResumable
-   * @name resumableFactoryProvider.factory
+   * Flow, MaybeFlow or NotFlow
+   * @name flowFactoryProvider.factory
    * @type {function}
-   * @return {Resumable}
+   * @return {Flow}
    */
   this.factory = function (options) {
-    return new Resumable(options);
+    return new Flow(options);
   };
 
   /**
    * Define the default events
-   * @name resumableFactoryProvider.events
+   * @name flowFactoryProvider.events
    * @type {Array}
    * @private
    */
@@ -35,7 +35,7 @@ angular.module('ngResumable.provider', [])
 
   /**
    * Add default events
-   * @name resumableFactoryProvider.on
+   * @name flowFactoryProvider.on
    * @function
    * @param {string} event
    * @param {Function} callback
@@ -51,11 +51,11 @@ angular.module('ngResumable.provider', [])
     return {
       'create': function(opts) {
         // combine default options with global options and options
-        var resumable = fn(angular.extend({}, defaults, opts));
+        var flow = fn(angular.extend({}, defaults, opts));
         angular.forEach(events, function (event) {
-          resumable.on(event[0], event[1]);
+          flow.on(event[0], event[1]);
         });
-        return resumable;
+        return flow;
       }
     };
   };

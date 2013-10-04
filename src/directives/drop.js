@@ -1,11 +1,11 @@
 'use strict';
-angular.module('ngResumable.drop', ['ngResumable.init'])
-.directive('ngResumableDrop', ['$timeout', function($timeout) {
+angular.module('ngFlow.drop', ['ngFlow.init'])
+.directive('ngFlowDrop', ['$timeout', function($timeout) {
   return {
     'scope': false,
-    'require': '^ngResumableInit',
+    'require': '^ngFlowInit',
     'link': function(scope, element, attrs) {
-      scope.$resumable.assignDrop(element);
+      scope.$flow.assignDrop(element);
       var dragOverClass = attrs.ngDragOverClass;
       if (dragOverClass) {
         var promise;
