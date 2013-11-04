@@ -123,13 +123,15 @@ parameter must be adjusted together with `progressCallbacksInterval` parameter. 
 #### Properties
 
 * `.support` A boolean value indicator whether or not Flow.js is supported by the current browser.
+* `.supportDirectory` A boolean value, which indicates if browser supports directory uploads.
 * `.opts` A hash object of the configuration of the Flow.js instance.
 * `.files` An array of `FlowFile` file objects added by the user (see full docs for this object type below).
 
 #### Methods
 
-* `.assignBrowse(domNodes, isDirectory, singleFile)` Assign a browse action to one or more DOM nodes.  Pass in `true` to allow directories to be selected (Chrome only). To prevent multiple file uploads
-set singleFile to true.
+* `.assignBrowse(domNodes, isDirectory, singleFile)` Assign a browse action to one or more DOM nodes. Pass in `true` to allow directories to be selected (Chrome only, support can be checked with `supportDirectory` property).
+To prevent multiple file uploads set singleFile to true.
+Note: avoid using `a` and `button` tags as file upload buttons, use span instead.
 * `.assignDrop(domNodes)` Assign one or more DOM nodes as a drop target.
 * `.on(event, callback)` Listen for event from Flow.js (see below)
 * `.upload()` Start or resume uploading.
@@ -142,6 +144,8 @@ set singleFile to true.
 * `.removeFile(file)` Cancel upload of a specific `FlowFile` object on the list from the list.
 * `.getFromUniqueIdentifier(uniqueIdentifier)` Look up a `FlowFile` object by its unique identifier.
 * `.getSize()` Returns the total size of the upload in bytes.
+* `.sizeUploaded()` Returns the total size uploaded of all files in bytes.
+* `.timeRemaining()` Returns remaining time to upload all files in seconds. Accuracy is based on average speed. If speed is zero, time remaining will be equal to positive infinity `Number.POSITIVE_INFINITY`
 
 #### Events
 
@@ -155,11 +159,11 @@ added.
 * `.filesAdded(array, event)` Same as fileAdded, but used for multiple file validation.
 * `.filesSubmitted(array, event)` Can be used to start upload of currently added files.
 * `.fileRetry(file)` Something went wrong during upload of a specific file, uploading is being retried.
-* `.fileError(file, message)` An error occured during upload of a specific file.
+* `.fileError(file, message)` An error occurred during upload of a specific file.
 * `.uploadStart()` Upload has been started on the Flow object.
 * `.complete()` Uploading completed.
 * `.progress()` Uploading progress.
-* `.error(message, file)` An error, including fileError, occured.
+* `.error(message, file)` An error, including fileError, occurred.
 * `.catchAll(event, ...)` Listen to all the events listed above with the same callback function.
 
 ### FlowFile
@@ -189,8 +193,7 @@ FlowFile constructor can be accessed in `Flow.FlowFile`.
 * `.isUploading()` Returns a boolean indicating whether file chunks is uploading.
 * `.isComplete()` Returns a boolean indicating whether the file has completed uploading and received a server response.
 * `.sizeUploaded()` Returns size uploaded in bytes.
-* `.timeRemaining()` Returns remaining time to upload in seconds. Accuracy is based on average
-speed.
+* `.timeRemaining()` Returns remaining time to finish upload file in seconds. Accuracy is based on average speed. If speed is zero, time remaining will be equal to positive infinity `Number.POSITIVE_INFINITY`
 * `.getExtension()` Returns file extension in lowercase.
 * `.getType()` Returns file type.
 

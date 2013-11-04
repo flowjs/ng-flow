@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="app">
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="app">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -24,6 +24,8 @@
     <script src="bower_components/ng-flow/src/directives/img.js"></script>
     <script src="bower_components/ng-flow/src/directives/transfers.js"></script>
     <script src="bower_components/ng-flow/src/ng-flow.js"></script>
+    <script src="bower_components/fusty-flow.js/src/fusty-flow.js"></script>
+    <script src="bower_components/fusty-flow.js/src/fusty-flow-factory.js"></script>
     <script src="javascripts/app.js"></script>
   </head>
   <body >
@@ -32,20 +34,51 @@
         <h1>Ng-flow</h1>
         <p>Flow.js html5 file upload extension on angular.js framework</p>
 
-        <p class="view"><a href="https://github.com/flowjs/ng-flow">View the Project on GitHub <small>flowjs/ng-flow</small></a></p>
+        <p class="view"><a href="https://github.com/flowjs/ng-flow">Angular extension <small>flowjs/ng-flow</small></a></p>
 
         <ul>
           <li><a href="https://github.com/flowjs/ng-flow/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/flowjs/ng-flow/tarball/master">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/flowjs/ng-flow">View On <strong>GitHub</strong></a></li>
         </ul>
+
+        <p class="view"><a href="https://github.com/flowjs/flow.js">Flow.js file upload core library<small>flowjs/flow.js</small></a></p>
+
+        <ul>
+          <li><a href="https://github.com/flowjs/flow.js/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/flowjs/flow.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/flowjs/flow.js">View On <strong>GitHub</strong></a></li>
+        </ul>
+
+        <p class="view"><a href="https://github.com/flowjs/flow-php-server">flow.js php server library<small>flowjs/flow-php-server</small></a></p>
+
+        <ul>
+          <li><a href="https://github.com/flowjs/flow-php-server/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/flowjs/flow-php-server/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/flowjs/flow-php-server">View On <strong>GitHub</strong></a></li>
+        </ul>
+
+        <p class="view"><a href="https://github.com/flowjs/fusty-flow.js">optional IE 7-9 browsers drop-in support<small>flowjs/fusty-flow.js</small></a></p>
+
+        <ul>
+          <li><a href="https://github.com/flowjs/fusty-flow.js/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/flowjs/fusty-flow.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/flowjs/fusty-flow.js">View On <strong>GitHub</strong></a></li>
+        </ul>
       </header>
       <section>
         <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to Ng-flow Page.</h3>
+          <a name="welcome-to-ng-flow" class="anchor" href="#welcome-to-ng-flow"><span class="octicon octicon-link"></span></a>Welcome to Ng-flow Page.
+        </h3>
 
-<p>Ng-flow documentation can be found here: <a href="https://github.com/flowjs/ng-flow">https://github.com/flowjs/ng-flow</a></p>
-<p>This library also depends on <a href="https://github.com/flowjs/flow.js">https://github.com/flowjs/flow.js</a> </p>
+        <p>
+          Flow.js is a JavaScript library providing multiple simultaneous, stable and resumable uploads via the HTML5 File API.<br/><br/>
+
+          The library is designed to introduce fault-tolerance into the upload of large files through HTTP. This is done by splitting each file into small chunks. Then, whenever the upload of a chunk fails, uploading is retried until the procedure completes. This allows uploads to automatically resume uploading after a network connection is lost either locally or to the server. Additionally, it allows for users to pause, resume and even recover uploads without losing state because only the currently uploading chunks will be aborted, not the entire upload.
+        </p>
+
+        <p>Ng-flow documentation can be found here: <a href="https://github.com/flowjs/ng-flow">https://github.com/flowjs/ng-flow</a></p>
+        <p>Flow.js file upload core library: <a href="https://github.com/flowjs/flow.js">https://github.com/flowjs/flow.js</a></p>
 
 <h3>
 <a name="basic-example" class="anchor" href="#basic-example"><span class="octicon octicon-link"></span></a>Basic example:</h3>
@@ -55,8 +88,8 @@
 <div ng-flow-init
      ng-files-submitted="$flow.upload()">
   <div class="drop" ng-flow-drop ng-drag-over-class="drag-over">
-    <button class="btn" ng-flow-btn>Upload File</button>
-    <button class="btn" ng-flow-btn ng-directory>Upload Folder</button>
+    <span class="btn btn-default" ng-flow-btn>Upload File</span>
+    <span class="btn btn-default" ng-flow-btn ng-directory ng-show="$flow.supportDirectory">Upload Folder</span>
     <b>OR</b>
     Drag And Drop your file here
   </div>
@@ -84,16 +117,16 @@
         </div>
       </div>
       <div class="btn-group">
-        <a class="btn btn-xs btn-warning" ng-click="file.pause()" ng-if="!file.paused && file.isUploading()">
+        <a class="btn btn-xs btn-warning" ng-click="file.pause()" ng-show="!file.paused && file.isUploading()">
           Pause
         </a>
-        <a class="btn btn-xs btn-warning" ng-click="file.resume()" ng-if="file.paused">
+        <a class="btn btn-xs btn-warning" ng-click="file.resume()" ng-show="file.paused">
           Resume
         </a>
         <a class="btn btn-xs btn-danger" ng-click="file.cancel()">
           Cancel
         </a>
-        <a class="btn btn-xs btn-info" ng-click="file.retry()" ng-if="file.error">
+        <a class="btn btn-xs btn-info" ng-click="file.retry()" ng-show="file.error">
           Retry
         </a>
       </div>
@@ -104,19 +137,19 @@
 <hr class="soften"/>
 
 <div ng-flow-init="{singleFile:true}"
- ng-file-added="{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] === 1">
+ ng-file-added="{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
 <h3>
 <a name="image-example" class="anchor" href="#image-example"><span class="octicon octicon-link"></span></a>Image example:</h3>
-<div class="thumbnail" ng-if="!$flow.files.length">
+<div class="thumbnail" ng-show="!$flow.files.length">
   <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
 </div>
-<div class="thumbnail" ng-if="$flow.files.length">
+<div class="thumbnail" ng-show="$flow.files.length">
   <img ng-flow-img="$flow.files[0]" />
 </div>
 <div>
-  <a href="#" class="btn btn-primary" ng-if="!$flow.files.length" ng-flow-btn>Select image</a>
-  <a href="#" class="btn btn-info" ng-if="$flow.files.length" ng-flow-btn>Change</a>
-  <a href="#" class="btn btn-danger" ng-if="$flow.files.length"
+  <a href="#" class="btn btn-primary" ng-show="!$flow.files.length" ng-flow-btn>Select image</a>
+  <a href="#" class="btn btn-info" ng-show="$flow.files.length" ng-flow-btn>Change</a>
+  <a href="#" class="btn btn-danger" ng-show="$flow.files.length"
      ng-click="$flow.cancel()">
     Remove
   </a>

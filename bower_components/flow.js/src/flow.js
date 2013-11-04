@@ -6,7 +6,6 @@
   /**
    * Flow.js is a library providing multiple simultaneous, stable and
    * resumable uploads via the HTML5 File API.
-   * @name
    * @param [opts]
    * @param {number} [opts.chunkSize]
    * @param {bool} [opts.forceChunkSize]
@@ -30,12 +29,6 @@
    */
   function Flow(opts) {
     /**
-     * Library version
-     * @type {string}
-     */
-    this.version = '2.0.0-beta2';
-
-    /**
      * Supported by browser?
      * @type {boolean}
      */
@@ -52,6 +45,12 @@
     if (!this.support) {
       return ;
     }
+
+    /**
+     * Check if directory upload is supported
+     * @type {boolean}
+     */
+    this.supportDirectory = /WebKit/.test(window.navigator.userAgent);
 
     /**
      * List of FlowFile objects
@@ -110,7 +109,8 @@
       event.stopPropagation();
       event.preventDefault();
       var dataTransfer = event.dataTransfer;
-      if (dataTransfer.items && dataTransfer.items[0].webkitGetAsEntry) {
+      if (dataTransfer.items && dataTransfer.items[0] &&
+        dataTransfer.items[0].webkitGetAsEntry) {
         $.webkitReadDataTransfer(event);
       } else {
         $.addFiles(dataTransfer.files, event);
@@ -568,6 +568,43 @@
         totalSize += file.size;
       });
       return totalSize;
+    },
+
+    /**
+     * Returns the total size uploaded of all files in bytes.
+     * @function
+     * @returns {number}
+     */
+    sizeUploaded: function () {
+      var size = 0;
+      each(this.files, function (file) {
+        size += file.sizeUploaded();
+      });
+      return size;
+    },
+
+    /**
+     * Returns remaining time to upload all files in seconds. Accuracy is based on average speed.
+     * If speed is zero, time remaining will be equal to positive infinity `Number.POSITIVE_INFINITY`
+     * @function
+     * @returns {number}
+     */
+    timeRemaining: function () {
+      var sizeDelta = 0;
+      var averageSpeed = 0;
+      each(this.files, function (file) {
+        if (!file.paused && !file.error) {
+          sizeDelta += file.size - file.sizeUploaded();
+          averageSpeed += file.averageSpeed;
+        }
+      });
+      if (sizeDelta && !averageSpeed) {
+        return Number.POSITIVE_INFINITY;
+      }
+      if (!sizeDelta && !averageSpeed) {
+        return 0;
+      }
+      return Math.floor(sizeDelta / averageSpeed);
     }
   };
 
@@ -682,8 +719,11 @@
      * @function
      */
     measureSpeed: function () {
-      var smoothingFactor = this.flowObj.opts.speedSmoothingFactor;
       var timeSpan = Date.now() - this._lastProgressCallback;
+      if (!timeSpan) {
+        return ;
+      }
+      var smoothingFactor = this.flowObj.opts.speedSmoothingFactor;
       var uploaded = this.sizeUploaded();
       // Prevent negative upload speed after file upload resume
       this.currentSpeed = Math.max((uploaded - this._prevUploadedSize) / timeSpan * 1000, 0);
@@ -696,7 +736,7 @@
      * Callback when something happens within the chunk.
      * @function
      * @param {string} event can be 'progress', 'success', 'error' or 'retry'
-     * @param {string} message
+     * @param {string} [message]
      */
     chunkEvent: function (event, message) {
       switch (event) {
@@ -720,9 +760,13 @@
           if (this.error) {
             return;
           }
+          this.measureSpeed();
           this.flowObj.fire('fileProgress', this);
           this.flowObj.fire('progress');
+          this._lastProgressCallback = Date.now();
           if (this.isComplete()) {
+            this.currentSpeed = 0;
+            this.averageSpeed = 0;
             this.flowObj.fire('fileSuccess', this, message);
           }
           break;
@@ -872,26 +916,29 @@
     sizeUploaded: function () {
       var size = 0;
       each(this.chunks, function (chunk) {
-        // can't sum only chunk.loaded values, because it is bigger than chunk size
-        if (chunk.status() === 'success') {
-          size += chunk.endByte - chunk.startByte;
-        } else {
-          size += chunk.loaded;
-        }
+        size += chunk.sizeUploaded();
       });
       return size;
     },
 
     /**
-     * Time remaining in seconds
+     * Returns remaining time to finish upload file in seconds. Accuracy is based on average speed.
+     * If speed is zero, time remaining will be equal to positive infinity `Number.POSITIVE_INFINITY`
      * @function
      * @returns {number}
      */
     timeRemaining: function () {
-      if (!this.averageSpeed) {
+      if (this.paused || this.error) {
         return 0;
       }
-      return Math.floor(Math.max(this.size - this.sizeUploaded(), 0) / this.averageSpeed);
+      var delta = this.size - this.sizeUploaded();
+      if (delta && !this.averageSpeed) {
+        return Number.POSITIVE_INFINITY;
+      }
+      if (!delta && !this.averageSpeed) {
+        return 0;
+      }
+      return Math.floor(delta / this.averageSpeed);
     },
 
     /**
@@ -946,7 +993,7 @@
      * File size
      * @type {number}
      */
-    this. fileObjSize = fileObj.size;
+    this.fileObjSize = fileObj.size;
 
     /**
      * File offset
@@ -1253,6 +1300,20 @@
     },
 
     /**
+     * Count total size uploaded
+     * @function
+     * @returns {number}
+     */
+    sizeUploaded: function () {
+      var size = this.endByte - this.startByte;
+      // can't return only chunk.loaded value, because it is bigger than chunk size
+      if (this.status() !== 'success') {
+        size = this.progress() * size;
+      }
+      return size;
+    },
+
+    /**
      * Prepare Xhr request. Set query, headers and data
      * @param {string} method GET or POST
      * @param {string} [paramsMethod] octet or form
@@ -1362,11 +1423,20 @@
    */
   Flow.FlowChunk = FlowChunk;
 
-  window.Flow = Flow;
+  /**
+   * Library version
+   * @type {string}
+   */
+  Flow.version = '2.0.0-beta5';
 
+  if (typeof module !== 'undefined') {
+    module.exports = Flow;
+  } else if (typeof define === "function" && define.amd) {
+    // AMD/requirejs: Define the module
+    define(function(){
+      return Flow;
+    });
+  } else {
+    window.Flow = Flow;
+  }
 })(window, document);
-
-// Node.js-style export for Node and Component
-if (typeof module !== 'undefined') {
-  module.exports = window.Flow;
-}

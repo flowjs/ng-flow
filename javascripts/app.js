@@ -19,5 +19,5 @@ var app = angular.module('app', ['ngFlow'])
       console.log('catchAll', arguments);
     });
     // Can be used with different implementations of Flow.js
-    // flowFactoryProvider.factory = fustyFlowFactory;
+    flowFactoryProvider.factory = fustyFlowFactory;
   }]);

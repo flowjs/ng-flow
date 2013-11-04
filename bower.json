@@ -15,7 +15,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1",
-    "ng-flow": "~1"
+    "angular": "~1.0",
+    "ng-flow": "~1",
+    "fusty-flow.js": "~1"
   }
 }
