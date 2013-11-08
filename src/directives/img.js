@@ -1,4 +1,3 @@
-'use strict';
 angular.module('ngFlow.img', ['ngFlow.init'])
 .directive('ngFlowImg', [function() {
   return {

@@ -1,4 +1,3 @@
-'use strict';
 angular.module('ngFlow.drop', ['ngFlow.init'])
 .directive('ngFlowDrop', ['$timeout', function($timeout) {
   return {

@@ -1,4 +1,3 @@
-'use strict';
 angular.module('ngFlow.init', ['ngFlow.provider'])
 .controller('NgFlowCtrl', ['$scope', '$attrs', '$parse', 'flowFactory',
 function ($scope, $attrs, $parse, flowFactory) {
