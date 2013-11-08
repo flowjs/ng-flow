@@ -137,7 +137,7 @@
 <hr class="soften"/>
 
 <div ng-flow-init="{singleFile:true}"
- ng-file-added="{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+ ng-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
 <h3>
 <a name="image-example" class="anchor" href="#image-example"><span class="octicon octicon-link"></span></a>Image example:</h3>
 <div class="thumbnail" ng-show="!$flow.files.length">
@@ -147,12 +147,12 @@
   <img ng-flow-img="$flow.files[0]" />
 </div>
 <div>
-  <a href="#" class="btn btn-primary" ng-show="!$flow.files.length" ng-flow-btn>Select image</a>
-  <a href="#" class="btn btn-info" ng-show="$flow.files.length" ng-flow-btn>Change</a>
-  <a href="#" class="btn btn-danger" ng-show="$flow.files.length"
+  <span class="btn btn-primary" ng-show="!$flow.files.length" ng-flow-btn>Select image</span>
+  <span class="btn btn-info" ng-show="$flow.files.length" ng-flow-btn>Change</span>
+  <span class="btn btn-danger" ng-show="$flow.files.length"
      ng-click="$flow.cancel()">
     Remove
-  </a>
+  </span>
 </div>
 <p>
   Only PNG,GIF,JPG,JEPG files allowed.
