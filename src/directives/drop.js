@@ -22,7 +22,8 @@ angular.module('ngFlow.drop', ['ngFlow.init'])
       }
       function isFileDrag(dragEvent) {
         var fileDrag = false;
-        angular.forEach(dragEvent.dataTransfer.types, function(val) {
+        var dataTransfer = dragEvent.dataTransfer || dragEvent.originalEvent.dataTransfer;
+        angular.forEach(dataTransfer && dataTransfer.types, function(val) {
           if (val === 'Files') {
             fileDrag = true;
           }
