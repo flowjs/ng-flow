@@ -56,7 +56,7 @@ This directive will assign transfers variable to the scope. This variable is a r
 ````
 file is instance of FlowFile.
 
-How can i drop files?
+How can I drop files?
 ============
 
 Use ng-flow-drop directive:
@@ -67,7 +67,7 @@ Use ng-flow-drop directive:
 ````
 You can optionally set class, then file is over the element, with ng-drag-over-class attribute.
 
-How can i preview uploaded image?
+How can I preview uploaded image?
 ============
 
 Use ng-flow-img directive:
@@ -77,7 +77,7 @@ Use ng-flow-img directive:
 Image will be automatically updated once file is added. No need to start upload.
 
 
-How can i set options for flow.js?
+How can I set options for flow.js?
 ============
 
 Use config:
@@ -106,7 +106,7 @@ also can be configured on "ng-flow-init" directive:
 ````
 
 
-How can i catch events?
+How can I catch events?
 ============
 
 Events are listed on "ng-flow-init" directive:
@@ -129,7 +129,7 @@ Events are listed on "ng-flow-init" directive:
 ````
 
 
-How can i support older browsers?
+How can I support older browsers?
 ============
 Go to https://github.com/flowjs/fusty-flow.js
 and add to your config:
