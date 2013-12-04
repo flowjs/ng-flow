@@ -1,0 +1,28 @@
+{
+  "name": "ng-flow",
+  "version": "1.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1",
+    "flow.js": "~2"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.3"
+  },
+  "homepage": "https://github.com/flowjs/ng-flow",
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "8a9e02db6ffe47908497243b90a72047b9cf07ef"
+  },
+  "_source": "git://github.com/flowjs/ng-flow.git",
+  "_target": "~1",
+  "_originalSource": "ng-flow"
+}

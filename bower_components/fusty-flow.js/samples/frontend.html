@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../bower_components/flow.js/src/flow.js"></script>
+    <script src="../src/fusty-flow-factory.js"></script>
+    <script src="../src/fusty-flow.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <style>
+        .list {
+            list-style: none;
+            border-top: 2px solid black;
+            padding: 0;
+        }
+        .list li span{
+            display: block;
+        }
+        .list li a{
+            padding: 5px;
+            color: blue;
+        }
+        .list li {
+            border-bottom: 2px solid black;
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow: hidden;
+        }
+        .span6 {
+            width: 50%;
+             float: left;
+        }
+        p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="span6">
+    <p>Flow</p>
+    <input id="flowUploader" type="file">
+    <a href="#" onclick="resume.upload()">Upload</a>
+    <a href="#" onclick="resume.pause()">Pause</a>
+    <a href="#" onclick="resume.cancel()">Cancel</a>
+    <ul id="flowList" class="list">
+
+    </ul>
+</div>
+
+<div class="span6">
+    <p>Not Flow</p>
+    <input id="notFlowUploader" type="file">
+    <a href="#" onclick="noresume.upload()">Upload</a>
+    <a href="#" onclick="noresume.pause()">Pause</a>
+    <a href="#" onclick="noresume.cancel()">Cancel</a>
+    <ul id="notFlowList" class="list">
+
+    </ul>
+</div>
+
+<script>
+function init(flow) {
+    var opts = {
+        target: 'server.php',
+        query: function () { return {'Hello':'hi', 'flow': flow}},
+        simultaneousUploads: 4,
+        chunkSize: 1024 * 1024,
+        throttleProgressCallbacks: 0
+    };
+    var r = flow ? new Flow(opts) : new FustyFlow(opts);
+    if (flow && !r.support) {
+        return ;
+    }
+    r.assignBrowse(document.getElementById(flow ? 'flowUploader' : 'notFlowUploader'));
+    r.on('catchall', function () {
+        console.log(arguments[0], arguments);
+    });
+    r.on('fileSuccess', function(file, message){
+        list.update(file, message);
+    });
+    r.on('fileProgress', function(file){
+        list.update(file);
+    });
+    r.on('fileAdded', function(file, event){
+        list.add(file);
+    });
+    r.on('filesAdded', function(array){
+
+    });
+    r.on('fileRetry', function(file){
+        list.update(file);
+    });
+    r.on('fileError', function(file, message){
+        list.update(file, 'Error: ' + message);
+    });
+    r.on('uploadStart', function(){
+
+    });
+    r.on('complete', function(){
+
+    });
+    r.on('progress', function(){
+
+    });
+    r.on('error', function(message, file){
+
+    });
+    r.on('pause', function(){
+
+    });
+    r.on('cancel', function(){
+
+    });
+
+    function FlowList(element) {
+        var $ = this;
+        $.element = element;
+        $.files = {};
+        $.init = function () {
+
+        };
+        $.add = function (file) {
+            var element = document.createElement('li');
+            $.element.appendChild(element);
+            $.files[file.uniqueIdentifier] = new FlowListRow(element, file);
+        };
+        $.update = function (file, message) {
+            $.files[file.uniqueIdentifier] && $.files[file.uniqueIdentifier].update(file, message);
+        };
+        $.init();
+    }
+    function FlowListRow(element, file) {
+        var $ = this;
+        $.element = element;
+        $.file = file;
+        $.message = '';
+        $.formatSize = function(size){
+            if(size<1024) {
+                return size + ' bytes';
+            } else if(size<1024*1024) {
+                return (size/1024.0).toFixed(0) + ' KB';
+            } else if(size<1024*1024*1024) {
+                return (size/1024.0/1024.0).toFixed(1) + ' MB';
+            } else {
+                return (size/1024.0/1024.0/1024.0).toFixed(1) + ' GB';
+            }
+        };
+        $.init = function () {
+            var element;
+            for (var index in {'name':1, 'relativePath':1, 'uniqueIdentifier':1}) {
+                element = document.createElement('span');
+                element.innerText = index + ': ' + $.file[index];
+                $.element.appendChild(element);
+            }
+
+            for (var index in {'progress':1, 'isUploading':1, 'timeRemaining':1}) {
+                element = document.createElement('span');
+                element.innerText = index + ': ' + $.file[index]();
+                $.element.appendChild(element);
+            }
+
+            element = document.createElement('span');
+            element.innerText = 'size' + ': ' + $.formatSize($.file.size);
+            $.element.appendChild(element);
+
+            element = document.createElement('span');
+            element.innerText = 'uploadedFileSize' + ': ' + $.formatSize($.file.sizeUploaded());
+            $.element.appendChild(element);
+
+            element = document.createElement('span');
+            element.innerText = 'averageSpeed' + ': ' + $.formatSize($.file.averageSpeed) + '/s';
+            $.element.appendChild(element);
+
+            element = document.createElement('span');
+            element.innerText = 'currentSpeed' + ': ' + $.formatSize($.file.currentSpeed) + '/s';
+            $.element.appendChild(element);
+
+            element = document.createElement('span');
+            element.innerText = 'message' + ': ' + $.message;
+            $.element.appendChild(element);
+
+            jQuery.each({'abort':1, 'retry':1, 'cancel':1}, function (index) {
+                element = document.createElement('a');
+                element.innerText = index;
+                element.href = "#";
+                jQuery(element).bind('click', function () {
+                    $.file[index]();
+                    if (index == 'cancel') {
+                        jQuery($.element).remove();
+                    }
+                    return false;
+                });
+                $.element.appendChild(element);
+            });
+        };
+        $.update = function (file, message) {
+            $.file = file;
+            $.element.innerHTML = '';
+            $.message = message;
+            $.init();
+        };
+        $.init();
+    }
+
+    var element = document.getElementById(flow ? 'flowList' : 'notFlowList');
+    var list = new FlowList(element);
+    return r;
+}
+var resume = init(true);
+var noresume = init(false);
+</script>
+</body>
+</html>

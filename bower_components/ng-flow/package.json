@@ -1,0 +1,33 @@
+{
+  "name": "ng-flow",
+  "version": "1.0.0",
+  "description": "Flow.js html5 file upload extension on angular.js framework",
+  "main": "src/ng-flow.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/flowjs/ng-flow.git"
+  },
+  "keywords": [
+    "flow.js",
+    "flow",
+    "resumable.js",
+    "resumable",
+    "angular",
+    "angular.js",
+    "angular-upload",
+    "file upload",
+    "upload"
+  ],
+  "author": "Aidas Klimas",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-karma": "~0.6.2"
+  }
+}

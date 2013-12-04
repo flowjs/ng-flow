@@ -1,0 +1,14 @@
+{
+  "name": "fusty-flow.js",
+  "version": "1.0.0-beta3",
+  "main": "src/fusty-flow.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ],
+  "dependencies": {
+    "flow.js": "~2"
+  }
+}
