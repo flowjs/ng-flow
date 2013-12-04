@@ -10,15 +10,17 @@ Demo: http://flowjs.github.io/ng-flow/
 ## How can I install it?
 1) Get the library:
 
-use bower:
+Download a latest build.zip from https://github.com/flowjs/ng-flow/releases
+it contains development and minified production files, they are also concatenated with core flow.js library.
+or use bower:
         
         bower install ng-flow#~1
-                
-use cdn, look for available packages at http://www.jsdelivr.com/#!flow
                 
 or use git clone
         
         git clone https://github.com/flowjs/ng-flow
+
+or use cdn, look for available packages at http://www.jsdelivr.com/#!flow, ng-flow is named as angular.flow
                 
 2) Add the module to your app as a dependency:
 
@@ -34,8 +36,8 @@ First of all wrap places there you are going to use Flow.js
 </div>
 ````
 This directive is going to add $flow variable to current scope.
-Also this directive can be nested, because $flow variable is going to be overriden.
-$flow is instance of Flow.
+Also this directive can be nested, because `$flow` variable is going to be overridden.
+`$flow` is instance of Flow.
 
 
 Secondly you need to assign some upload buttons:
@@ -55,6 +57,7 @@ This directive will assign transfers variable to the scope. This variable is a r
 </tr>
 ````
 file is instance of FlowFile.
+
 
 How can I drop files?
 ============
@@ -128,6 +131,16 @@ Events are listed on "ng-flow-init" directive:
 </div>
 ````
 
+How can I assign flow to a parent scope?
+============
+
+Use ng-flow-name attribute and set it to any variable in the scope.
+````html
+<div ng-flow-init ng-flow-name="obj.flow">
+    ... Flow is set to obj.flow  ...
+    I have uploaded files: #{{obj.flow.files.length}}
+</div>
+````
 
 How can I support older browsers?
 ============
