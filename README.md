@@ -12,6 +12,7 @@ Demo: http://flowjs.github.io/ng-flow/
 
 Download a latest build.zip from https://github.com/flowjs/ng-flow/releases
 it contains development and minified production files, they are also concatenated with core flow.js library.
+
 or use bower:
         
         bower install ng-flow#~1
