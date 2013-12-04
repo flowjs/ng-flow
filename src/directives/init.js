@@ -51,6 +51,9 @@ function ($scope, $attrs, $parse, flowFactory) {
     }
   });
   $parse(name).assign($scope, flow);
+  $scope.$on('$destroy', function () {
+    $parse(name).assign($scope);
+  });
 }])
 .directive('ngFlowInit', [function() {
   return {

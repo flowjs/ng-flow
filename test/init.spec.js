@@ -38,4 +38,17 @@ describe('init', function() {
     expect($rootScope.obj.flow instanceof Flow).toBeTruthy();
     expect($rootScope.obj.flow).toBe(elementScope.obj.flow);
   });
+
+  it('should destroy $flow', function() {
+    $rootScope.obj = {flow:''};
+    $rootScope.show = true;
+    element = $compile('<div ng-flow-init="{}" ng-if="show" ng-flow-name="obj.flow"></div>')($rootScope);
+    $rootScope.$digest();
+    elementScope = element.scope();
+    expect($rootScope.obj.flow).toBeDefined();
+    expect($rootScope.obj.flow instanceof Flow).toBeTruthy();
+    $rootScope.show = false;
+    $rootScope.$digest();
+    expect($rootScope.obj.flow).toBeUndefined();
+  });
 });
