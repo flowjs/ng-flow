@@ -1,0 +1,1 @@
+module.exports.location = "phantom\\phantomjs.exe"
