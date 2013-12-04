@@ -1,6 +1,6 @@
 {
   "name": "ng-flow",
-  "version": "1.0.0-beta3",
+  "version": "1.0.0",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -11,5 +11,8 @@
   "dependencies": {
     "angular": "~1",
     "flow.js": "~2"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.3"
   }
 }

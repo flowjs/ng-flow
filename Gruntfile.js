@@ -26,6 +26,17 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    karma: {
+      options: {
+        configFile: 'karma.conf.js'
+      },
+      watch: {
+
+      },
+      continuous: {
+        singleRun: true
+      }
     }
   });
 
@@ -35,5 +46,6 @@ module.exports = function(grunt) {
   }
 
   grunt.registerTask('build', ['concat', 'uglify:build']);
+  grunt.registerTask('test', ['karma:continuous']);
 
 };

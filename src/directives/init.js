@@ -3,6 +3,10 @@ angular.module('ngFlow.init', ['ngFlow.provider'])
 function ($scope, $attrs, $parse, flowFactory) {
   // create the flow object
   var options = angular.extend({}, $scope.$eval($attrs.ngFlowInit));
+  var name = "$flow";
+  if ($attrs.hasOwnProperty('ngFlowName')) {
+    name = $attrs.ngFlowName;
+  }
   var flow = flowFactory.create(options);
 
   var events = {
@@ -46,7 +50,7 @@ function ($scope, $attrs, $parse, flowFactory) {
       $scope.$apply();
     }
   });
-  $scope.$flow = flow;
+  $parse(name).assign($scope, flow);
 }])
 .directive('ngFlowInit', [function() {
   return {
