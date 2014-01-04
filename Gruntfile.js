@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             'src/directives/drop.js',
             'src/directives/img.js',
             'src/directives/transfers.js',
-            'src/ng-flow.js',
+            'src/ng-flow.js'
           ]
         }
       }
@@ -47,5 +47,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['concat', 'uglify:build']);
   grunt.registerTask('test', ['karma:continuous']);
+  grunt.registerTask('watch', ['karma:watch']);
 
 };
