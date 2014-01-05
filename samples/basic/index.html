@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-flow-init>
+<html ng-app="app" flow-init>
 <head>
   <title>basic</title>
   <script src="../../bower_components/angular/angular.js"></script>
   <script src="../../bower_components/flow.js/src/flow.js"></script>
-  <script src="../../src/ng-flow.js"></script>
+  <script src="../../src/angular-flow.js"></script>
   <script src="../../src/provider.js"></script>
   <script src="../../src/directives/btn.js"></script>
   <script src="../../src/directives/drop.js"></script>
+  <script src="../../src/directives/drag-events.js"></script>
   <script src="../../src/directives/init.js"></script>
+  <script src="../../src/directives/events.js"></script>
   <script src="../../src/directives/transfers.js"></script>
   <script src="../../src/directives/img.js"></script>
   <script src="app.js"></script>
   <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
         rel="stylesheet"/>
 </head>
-<body>
-
+<body flow-prevent-drop
+      flow-drag-enter="style={border: '5px solid green'}"
+      flow-drag-leave="style={}"
+      ng-style="style">
 <div class="container">
-  <h1>ng-flow basic example</h1>
+  <h1>flow basic example</h1>
   <hr class="soften"/>
 
   <div class="row">
     <div class="span6">
       <h2>Inputs:</h2>
 
-      <input type="file" ng-flow-btn/>
-      <input type="file" ng-flow-btn ng-directory ng-show="$flow.supportDirectory"/>
+      <input type="file" flow-btn/>
+      <input type="file" flow-btn ng-directory ng-show="$flow.supportDirectory"/>
     </div>
     <div class="span6">
       <h2>Buttons:</h2>
 
-      <span class="btn" ng-flow-btn><i class="icon icon-file"></i>Upload File</span>
-      <span class="btn" ng-flow-btn ng-directory ng-show="$flow.supportDirectory"><i class="icon icon-folder-open"></i>
+      <span class="btn" flow-btn><i class="icon icon-file"></i>Upload File</span>
+      <span class="btn" flow-btn ng-directory ng-show="$flow.supportDirectory"><i class="icon icon-folder-open"></i>
         Upload Folder
       </span>
     </div>
@@ -42,13 +46,13 @@
   <h2>Transfers:</h2>
 
   <p>
-    <a class="btn btn-small btn-success" ng-click="$flow.upload()">Upload</a>
+    <a class="btn btn-small btn-success" ng-click="$flow.resume()">Upload</a>
     <a class="btn btn-small btn-danger" ng-click="$flow.pause()">Pause</a>
     <a class="btn btn-small btn-info" ng-click="$flow.cancel()">Cancel</a>
     <span class="label label-info">Size: {{$flow.getSize()}}</span>
     <span class="label label-info">Is Uploading: {{$flow.isUploading()}}</span>
   </p>
-  <table class="table table-hover table-bordered table-striped" ng-flow-transfers>
+  <table class="table table-hover table-bordered table-striped" flow-transfers>
     <thead>
     <tr>
       <th>#</th>
@@ -98,7 +102,8 @@
 
   <hr class="soften"/>
 
-  <div class="alert" ng-flow-drop ng-drag-over-class="alert-success">
+  <div class="alert" flow-drop flow-drag-enter="class='alert-success'" flow-drag-leave="class=''"
+          ng-class="class">
     Drag And Drop your file here
   </div>
 </div>

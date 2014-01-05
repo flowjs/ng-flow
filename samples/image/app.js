@@ -6,7 +6,7 @@
  * @name app
  * @type {angular.Module}
  */
-var app = angular.module('app', ['ngFlow'])
+var app = angular.module('app', ['flow'])
 .config(['flowFactoryProvider', function (flowFactoryProvider) {
   flowFactoryProvider.defaults = {
     target: 'upload.php',

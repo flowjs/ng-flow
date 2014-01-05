@@ -12,7 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		header("HTTP/1.0 404 Not Found");
 	}
 }
-// Just imitate that the file was stored.
+// Just imitate that the file was uploaded and stored.
+sleep(2);
 echo json_encode([
     'success' => true,
     'files' => $_FILES,

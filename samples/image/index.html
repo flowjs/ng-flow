@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-flow-init
-      ng-file-added="$file.getExtension() == 'png'"
-      ng-files-submitted="$flow.upload()">
+<html ng-app="app" flow-init
+      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+      flow-files-submitted="$flow.upload()">
 <head>
   <title>Image</title>
   <script src="../../bower_components/angular/angular.js"></script>
   <script src="../../bower_components/flow.js/src/flow.js"></script>
-  <script src="../../src/ng-flow.js"></script>
+  <script src="../../src/angular-flow.js"></script>
   <script src="../../src/provider.js"></script>
   <script src="../../src/directives/btn.js"></script>
   <script src="../../src/directives/drop.js"></script>
+  <script src="../../src/directives/drag-events.js"></script>
   <script src="../../src/directives/init.js"></script>
+  <script src="../../src/directives/events.js"></script>
   <script src="../../src/directives/transfers.js"></script>
   <script src="../../src/directives/img.js"></script>
   <script src="app.js"></script>
@@ -25,7 +27,7 @@
 <body>
 
 <div class="container">
-  <h1>ng-flow image example</h1>
+  <h1>flow image example</h1>
   <hr class="soften"/>
 
   <div>
@@ -33,18 +35,18 @@
       <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
     </div>
     <div class="thumbnail" ng-show="$flow.files.length">
-      <img ng-flow-img="$flow.files[0]" />
+      <img flow-img="$flow.files[0]" />
     </div>
     <div>
-      <a href="#" class="btn" ng-hide="$flow.files.length" ng-flow-btn>Select image</a>
-      <a href="#" class="btn" ng-show="$flow.files.length" ng-flow-btn>Change</a>
+      <a href="#" class="btn" ng-hide="$flow.files.length" flow-btn>Select image</a>
+      <a href="#" class="btn" ng-show="$flow.files.length" flow-btn>Change</a>
       <a href="#" class="btn btn-danger" ng-show="$flow.files.length"
          ng-click="$flow.cancel()">
         Remove
       </a>
     </div>
     <p>
-      Only PNG files allowed.
+      Only PNG,GIF,JPG files allowed.
     </p>
   </div>
 </div>
