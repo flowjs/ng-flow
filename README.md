@@ -7,7 +7,13 @@ ng-flow extension is based on [Flow.js](https://github.com/flowjs/flow.js) libra
 
 Demo: http://flowjs.github.io/ng-flow/
 
-## How can I install it?
+
+### Upgrade ngFlow from v1 to v2
+Read [CHANGELOG.md](blob/master/CHANGELOG.md)
+
+
+How can I install it?
+============
 1) Get the library:
 
 Download a latest build.zip from https://github.com/flowjs/ng-flow/releases
@@ -15,7 +21,7 @@ it contains development and minified production files, they are also concatenate
 
 or use bower:
         
-        bower install ng-flow#~1
+        bower install ng-flow#~2
                 
 or use git clone
         
@@ -25,31 +31,33 @@ or use cdn, look for available packages at http://www.jsdelivr.com/#!flow, ng-fl
                 
 2) Add the module to your app as a dependency:
 
-        angular.module('app', ['ngFlow'])
+        angular.module('app', ['flow'])
         
 How can I use it?
 ============
 
 First of all wrap places there you are going to use Flow.js
 ````html
-<div ng-flow-init>
-    ... other ng-flow directives goes here ...
+<div flow-init>
+    ... other flow directives goes here ...
 </div>
 ````
+
 This directive is going to add $flow variable to current scope.
-Also this directive can be nested, because `$flow` variable is going to be overridden.
+Also directive can be nested, because `$flow` variable is going to be overridden.
 `$flow` is instance of Flow.
 
 
 Secondly you need to assign some upload buttons:
 ````html
-<input type="file" ng-flow-btn />
-<input type="file" ng-flow-btn ng-directory />
+<input type="file" flow-btn />
+<input type="file" flow-btn flow-directory />
 ````
+
 First button is for normal uploads and second is for directory uploads.
 
 
-Now you need to display uploaded files, this can be done with "ng-flow-transfers" directive.
+Now you need to display uploaded files, this can be done with "flow-transfers" directive.
 This directive will assign transfers variable to the scope. This variable is a reference to Flow.files array.
 ````html
 <tr ng-repeat="file in transfers">
@@ -57,27 +65,46 @@ This directive will assign transfers variable to the scope. This variable is a r
     <td>{{file.name}}</td>
 </tr>
 ````
+
 file is instance of FlowFile.
 
 
 How can I drop files?
 ============
 
-Use ng-flow-drop directive:
+Use `flow-drop` directive:
 ````html
-<div class="alert" ng-flow-drop ng-drag-over-class="alert-success">
+<div class="alert" flow-drop>
     Drag And Drop your file here
 </div>
 ````
-You can optionally set class, then file is over the element, with ng-drag-over-class attribute.
+
+### Prevent dropping files on a document
+Use `flow-prevent-drop` directive on `body` element:
+````html
+<body flow-prevent-drop>
+
+</body>
+````
+
+### How to add some styles while dropping a file?
+Use `flow-drag-enter` directive:
+````html
+<div flow-drag-enter="style={border:'4px solid green'}"  flow-drag-leave="style={}"
+     ng-style="style">
+</div>
+````
+
+Note: `flow-drag-leave` attribute can't be used alone, it is a part of `flow-drag-enter` directive.
 
 How can I preview uploaded image?
 ============
 
-Use ng-flow-img directive:
+Use flow-img directive:
 ````html
-<img ng-flow-img="$flow.files[0]" />
+<img flow-img="$flow.files[0]" />
 ````
+
 Image will be automatically updated once file is added. No need to start upload.
 
 
@@ -86,7 +113,7 @@ How can I set options for flow.js?
 
 Use config:
 ````javascript
-var app = angular.module('app', ['ngFlow'])
+var app = angular.module('app', ['flow'])
 .config(['flowFactoryProvider', function (flowFactoryProvider) {
     flowFactoryProvider.defaults = {
         target: '/upload',
@@ -102,9 +129,9 @@ var app = angular.module('app', ['ngFlow'])
 }]);
 ````
 
-also can be configured on "ng-flow-init" directive:
+also can be configured on "flow-init" directive:
 ````html
-<div ng-flow-init="{target:'/uploader'}">
+<div flow-init="{target:'/uploader'}">
 
 </div>
 ````
@@ -113,31 +140,42 @@ also can be configured on "ng-flow-init" directive:
 How can I catch events?
 ============
 
-Events are listed on "ng-flow-init" directive:
+Events are listed inside `flow-init` directive:
 ````html
-<div ng-flow-init
-      ng-file-success=" ... properties '$file', '$message' can be accessed ... "
-      ng-file-progress=" ... property '$file' can be accessed ... "
-      ng-file-added=" ... properties '$file', '$event' can be accessed ... "
-      ng-files-added=" ... properties '$files', '$event' can be accessed ... "
-      ng-files-submitted=" ... properties '$files', '$event' can be accessed ... "
-      ng-file-retry=" ... property '$file' can be accessed ... "
-      ng-file-error=" ... properties '$file', '$message' can be accessed ... "
-      ng-error=" ... properties '$file', '$message' can be accessed ... "
-      ng-complete=" ... "     
-      ng-upload-start=" ... "   
-      ng-progress=" ... "
-      > 
+<div flow-init
+      flow-file-success=" ... properties '$file', '$message' can be accessed ... "
+      flow-file-progress=" ... property '$file' can be accessed ... "
+      flow-file-added=" ... properties '$file', '$event' can be accessed ... "
+      flow-files-added=" ... properties '$files', '$event' can be accessed ... "
+      flow-files-submitted=" ... properties '$files', '$event' can be accessed ... "
+      flow-file-retry=" ... property '$file' can be accessed ... "
+      flow-file-error=" ... properties '$file', '$message' can be accessed ... "
+      flow-error=" ... properties '$file', '$message' can be accessed ... "
+      flow-complete=" ... "
+      flow-upload-start=" ... "
+      flow-progress=" ... "
+      >
+      <div flow-file-progress=" ... events can be also assigned inside flow-init ... "></div>
 
 </div>
 ````
 
+### How can I catch an event in a controller?
+If controller is on the same scope as `flow-init` directive or in a child scope,
+then we can catch events with `$on`. Events are prefixed with `flow::`.
+````javascript
+$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+  event.preventDefault();//prevent file from uploading
+});
+````
+second argument is always a `flow` instance and then follows event specific arguments.
+
 How can I assign flow to a parent scope?
 ============
 
-Use ng-flow-name attribute and set it to any variable in the scope.
+Use `flow-name` attribute and set it to any variable in the scope.
 ````html
-<div ng-flow-init ng-flow-name="obj.flow">
+<div flow-init flow-name="obj.flow">
     ... Flow is set to obj.flow  ...
     I have uploaded files: #{{obj.flow.files.length}}
 </div>
@@ -148,7 +186,7 @@ How can I support older browsers?
 Go to https://github.com/flowjs/fusty-flow.js
 and add to your config:
 ````javascript
-var app = angular.module('app', ['ngFlow'])
+var app = angular.module('app', ['flow'])
 .config(['flowFactoryProvider', function (flowFactoryProvider) {
     flowFactoryProvider.factory = fustyFlowFactory;
 }]);
