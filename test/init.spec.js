@@ -4,12 +4,12 @@ describe('init', function() {
   var element;
   var elementScope;
 
-  beforeEach(module('ngFlow'));
+  beforeEach(module('flow'));
 
   beforeEach(inject(function(_$compile_, _$rootScope_){
     $compile = _$compile_;
     $rootScope = _$rootScope_;
-    element = $compile('<div ng-flow-init></div>')($rootScope);
+    element = $compile('<div flow-init></div>')($rootScope);
     $rootScope.$digest();
     elementScope = element.scope();
   }));
@@ -19,10 +19,10 @@ describe('init', function() {
     expect($rootScope.$flow).toBeUndefined();
   });
 
-  describe('ng-flow-name', function () {
+  describe('flow-name', function () {
     beforeEach(function () {
       $rootScope.obj = {flow:''};
-      element = $compile('<div ng-flow-init ng-flow-name="obj.flow"></div>')($rootScope);
+      element = $compile('<div flow-init flow-name="obj.flow"></div>')($rootScope);
       $rootScope.$digest();
       elementScope = element.scope();
     });

@@ -4,14 +4,14 @@ describe('events', function () {
   var element;
   var elementScope;
 
-  beforeEach(module('ngFlow'));
+  beforeEach(module('flow'));
 
   beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     $rootScope.fileProgress = jasmine.createSpy('fileProgress');
-    element = $compile('<div ng-flow-init ng-file-progress="fileProgress($file)">' +
-      '<div ng-file-progress="fileProgress($file)"></div>' +
+    element = $compile('<div flow-init flow-file-progress="fileProgress($file)">' +
+      '<div flow-file-progress="fileProgress($file)"></div>' +
     '</div>')($rootScope);
     $rootScope.$digest();
     elementScope = element.scope();
@@ -51,8 +51,8 @@ describe('events', function () {
     beforeEach(inject(function() {
       $rootScope.fileProgress1 = jasmine.createSpy('fileProgress1');
       $rootScope.fileProgress2 = jasmine.createSpy('fileProgress2');
-      element = $compile('<div ng-flow-init ng-file-progress="fileProgress1($file)">' +
-        '<div ng-flow-init ng-file-progress="fileProgress2($file)"></div>' +
+      element = $compile('<div flow-init flow-file-progress="fileProgress1($file)">' +
+        '<div flow-init flow-file-progress="fileProgress2($file)"></div>' +
         '</div>')($rootScope);
       $rootScope.$digest();
       flowScope1 = element.scope();

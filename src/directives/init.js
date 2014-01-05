@@ -1,9 +1,9 @@
 !function (angular) {'use strict';
-  var module = angular.module('ngFlow.init', ['ngFlow.provider'])
-    .controller('NgFlowCtrl', ['$scope', '$attrs', '$parse', 'flowFactory',
+  var module = angular.module('flow.init', ['flow.provider'])
+    .controller('flowCtrl', ['$scope', '$attrs', '$parse', 'flowFactory',
     function ($scope, $attrs, $parse, flowFactory) {
       // create the flow object
-      var options = angular.extend({}, $scope.$eval($attrs.ngFlowInit));
+      var options = angular.extend({}, $scope.$eval($attrs.flowInit));
       var flow = flowFactory.create(options);
 
       flow.on('catchAll', function (event) {
@@ -18,17 +18,17 @@
       });
 
       $scope.$flow = flow;
-      if ($attrs.hasOwnProperty('ngFlowName')) {
-        $parse($attrs.ngFlowName).assign($scope, flow);
+      if ($attrs.hasOwnProperty('flowName')) {
+        $parse($attrs.flowName).assign($scope, flow);
         $scope.$on('$destroy', function () {
-          $parse($attrs.ngFlowName).assign($scope);
+          $parse($attrs.flowName).assign($scope);
         });
       }
     }])
-    .directive('ngFlowInit', [function() {
+    .directive('flowInit', [function() {
       return {
         scope: true,
-        controller: 'NgFlowCtrl'
+        controller: 'flowCtrl'
       };
     }]);
 
@@ -47,10 +47,10 @@
   };
 
   angular.forEach(events, function (eventArgs, eventName) {
-    var name = 'ng' + capitaliseFirstLetter(eventName);
+    var name = 'flow' + capitaliseFirstLetter(eventName);
     module.directive(name, [function() {
       return {
-        require: '^ngFlowInit',
+        require: '^flowInit',
         controller: ['$scope', '$attrs', function ($scope, $attrs) {
           $scope.$on('flow::' + eventName, function () {
             var funcArgs = Array.prototype.slice.call(arguments);

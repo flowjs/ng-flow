@@ -1,10 +1,10 @@
-angular.module('ngFlow.img', ['ngFlow.init'])
-.directive('ngFlowImg', [function() {
+angular.module('flow.img', ['flow.init'])
+.directive('flowImg', [function() {
   return {
     'scope': false,
-    'require': '^ngFlowInit',
+    'require': '^flowInit',
     'link': function(scope, element, attrs) {
-      var file = attrs.ngFlowImg;
+      var file = attrs.flowImg;
       scope.$watch(file, function (file) {
         if (!file) {
           return ;

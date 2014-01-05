@@ -1,12 +1,12 @@
-angular.module('ngFlow.btn', ['ngFlow.init'])
-.directive('ngFlowBtn', [function() {
+angular.module('flow.btn', ['flow.init'])
+.directive('flowBtn', [function() {
   return {
     'restrict': 'EA',
     'scope': false,
-    'require': '^ngFlowInit',
+    'require': '^flowInit',
     'link': function(scope, element, attrs) {
-      var isDirectory = attrs.hasOwnProperty('ngDirectory');
-      var isSingleFile = attrs.hasOwnProperty('ngSingleFile');
+      var isDirectory = attrs.hasOwnProperty('flowDirectory');
+      var isSingleFile = attrs.hasOwnProperty('flowSingleFile');
       scope.$flow.assignBrowse(element, isDirectory, isSingleFile);
     }
   };
