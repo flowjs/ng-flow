@@ -8,8 +8,7 @@ ng-flow extension is based on [Flow.js](https://github.com/flowjs/flow.js) libra
 Demo: http://flowjs.github.io/ng-flow/
 
 
-### Upgrade ngFlow from v1 to v2
-Read [CHANGELOG.md](blob/master/CHANGELOG.md)
+**Upgrade ngFlow from v1 to v2**, read the [changelog](CHANGELOG.md)
 
 
 How can I install it?
