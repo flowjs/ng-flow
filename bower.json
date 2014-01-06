@@ -3,10 +3,14 @@
   "version": "2.0.0-snapshot",
   "ignore": [
     "**/.*",
-    "node_modules",
-    "bower_components",
     "test",
-    "tests"
+    "samples",
+    "*.md",
+    "LICENSE",
+    "Gruntfile.js",
+    "karma.conf.js",
+    "package.json",
+    "bower.json"
   ],
   "dependencies": {
     "angular": "~1",
