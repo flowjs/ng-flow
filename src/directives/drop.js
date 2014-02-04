@@ -4,7 +4,23 @@ angular.module('flow.drop', ['flow.init'])
     'scope': false,
     'require': '^flowInit',
     'link': function(scope, element, attrs) {
-      scope.$flow.assignDrop(element);
+      if (attrs.flowDropEnabled) {
+        scope.$watch(attrs.flowDropEnabled, function (value) {
+          if (value) {
+            assignDrop();
+          } else {
+            unAssignDrop();
+          }
+        });
+      } else {
+        assignDrop();
+      }
+      function assignDrop() {
+        scope.$flow.assignDrop(element);
+      }
+      function unAssignDrop() {
+        scope.$flow.unAssignDrop(element);
+      }
     }
   };
 });

@@ -89,12 +89,20 @@ Use `flow-prevent-drop` directive on `body` element:
 ### How to add some styles while dropping a file?
 Use `flow-drag-enter` directive:
 ````html
-<div flow-drag-enter="style={border:'4px solid green'}"  flow-drag-leave="style={}"
+<div flow-drag-enter="style={border:'4px solid green'}" flow-drag-leave="style={}"
      ng-style="style">
 </div>
 ````
-
 Note: `flow-drag-leave` attribute can't be used alone, it is a part of `flow-drag-enter` directive.
+
+### How to dynamically disable drop area?
+````html
+<div class="alert" flow-drop flow-drop-enabled="config.enabled">
+    Drag And Drop your file here
+</div>
+````
+See example at `samples/dataurl/`.
+
 
 How can I preview uploaded image?
 ============
