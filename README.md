@@ -11,17 +11,23 @@ How can I install it?
 ============
 1) Get the library:
 
+**Direct Download**
 Download a latest build from https://github.com/flowjs/ng-flow/releases
 it contains development and minified production files in `dist/` directory,
 they are also concatenated with core flow.js library.
 
-or use bower:
+**Using Bower**
         
         bower install ng-flow#~2
                 
-or use git clone
+**Git Clone**
         
         git clone https://github.com/flowjs/ng-flow
+        
+**Using Yeoman**
+
+        bower install "ng-flow#~2" --save
+        grunt bower-install
                 
 2) Add the module to your app as a dependency:
 
