@@ -13,7 +13,17 @@
     "package.json",
     "bower.json"
   ],
-  "main": "./dist/ng-flow.min.js",
+  "main": [
+    "./src/angular-flow.js",
+    "./src/provider.js",
+    "./src/directives/btn.js",
+    "./src/directives/drag-events.js",
+    "./src/directives/drop.js",
+    "./src/directives/events.js",
+    "./src/directives/img.js",
+    "./src/directives/init.js",
+    "./src/directives/transfers.js"
+  ],
   "dependencies": {
     "angular": "~1",
     "flow.js": "~2"
