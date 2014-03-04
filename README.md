@@ -11,8 +11,9 @@ How can I install it?
 ============
 1) Get the library:
 
-Download a latest build.zip from https://github.com/flowjs/ng-flow/releases
-it contains development and minified production files, they are also concatenated with core flow.js library.
+Download a latest build from https://github.com/flowjs/ng-flow/releases
+it contains development and minified production files in `dist/` directory,
+they are also concatenated with core flow.js library.
 
 or use bower:
         
