@@ -7,10 +7,6 @@ ng-flow extension is based on [Flow.js](https://github.com/flowjs/flow.js) libra
 
 Demo: http://flowjs.github.io/ng-flow/
 
-
-**Upgrade ngFlow from v1 to v2**, read the [changelog](CHANGELOG.md)
-
-
 How can I install it?
 ============
 1) Get the library:
@@ -25,8 +21,6 @@ or use bower:
 or use git clone
         
         git clone https://github.com/flowjs/ng-flow
-
-or use cdn, look for available packages at http://www.jsdelivr.com/#!flow, ng-flow is named as angular.flow
                 
 2) Add the module to your app as a dependency:
 
@@ -44,7 +38,7 @@ First of all wrap places there you are going to use Flow.js
 
 This directive is going to add $flow variable to current scope.
 Also directive can be nested, because `$flow` variable is going to be overridden.
-`$flow` is instance of Flow.
+`$flow` is instance of [Flow](https://github.com/flowjs/flow.js#flow).
 
 
 Secondly you need to assign some upload buttons:
@@ -56,16 +50,16 @@ Secondly you need to assign some upload buttons:
 First button is for normal uploads and second is for directory uploads.
 
 
-Now you need to display uploaded files, this can be done with "flow-transfers" directive.
-This directive will assign transfers variable to the scope. This variable is a reference to Flow.files array.
+Now you need to display uploaded files, all you need to do is to loop files array.
+Files array is attached to flow object named `$flow`.
 ````html
-<tr ng-repeat="file in transfers">
+<tr ng-repeat="file in $flow.files">
     <td>{{$index+1}}</td>
     <td>{{file.name}}</td>
 </tr>
 ````
 
-file is instance of FlowFile.
+file is instance of [FlowFile](https://github.com/flowjs/flow.js#flowfile).
 
 
 How can I drop files?
