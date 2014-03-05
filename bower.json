@@ -13,6 +13,7 @@
     "package.json",
     "bower.json"
   ],
+  "main": "./dist/ng-flow.min.js",
   "dependencies": {
     "angular": "~1",
     "flow.js": "~2"
