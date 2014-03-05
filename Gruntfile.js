@@ -6,23 +6,30 @@ module.exports = function(grunt) {
       options: {
         banner: '/*! <%= pkg.name %> <%= pkg.version %> */\n'
       },
-      build: {
-        src: 'dist/ng-flow.js',
+      'ng-flow': {
+        src: ['dist/ng-flow.js'],
         dest: 'dist/ng-flow.min.js'
+      },
+      'ng-flow-standalone': {
+        src: ['dist/ng-flow-standalone.js'],
+        dest: 'dist/ng-flow-standalone.min.js'
       }
     },
     concat: {
       flow: {
         files: {
           'dist/ng-flow.js': [
+            'src/provider.js',
+            'src/directives/init.js',
+            'src/directives/*.js',
+            'src/*.js'
+          ],
+          'dist/ng-flow-standalone.js': [
             'bower_components/flow.js/dist/flow.js',
             'src/provider.js',
             'src/directives/init.js',
-            'src/directives/btn.js',
-            'src/directives/drop.js',
-            'src/directives/img.js',
-            'src/directives/transfers.js',
-            'src/ng-flow.js'
+            'src/directives/*.js',
+            'src/*.js'
           ]
         }
       }
@@ -63,7 +70,7 @@ module.exports = function(grunt) {
     if (key !== "grunt" && key.indexOf("grunt") === 0) grunt.loadNpmTasks(key);
   }
 
-  grunt.registerTask('build', ['concat', 'uglify:build']);
+  grunt.registerTask('build', ['concat', 'uglify']);
   grunt.registerTask('test', ['karma:continuous']);
   grunt.registerTask('watch', ['karma:watch']);
 
