@@ -1,6 +1,6 @@
 {
   "name": "ng-flow",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "ignore": [
     "**/.*",
     "test",

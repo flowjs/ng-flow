@@ -327,7 +327,9 @@
       });
       if (!outstanding && !preventEvents) {
         // All chunks have been uploaded, complete
-        this.fire('complete');
+        async(function () {
+          this.fire('complete');
+        }, this);
       }
       return false;
     },
@@ -448,7 +450,9 @@
         started = this.uploadNextChunk(true) || started;
       }
       if (!started) {
-        this.fire('complete');
+        async(function () {
+          this.fire('complete');
+        }, this);
       }
     },
 
@@ -1385,6 +1389,15 @@
   }
 
   /**
+   * Execute function asynchronously
+   * @param fn
+   * @param context
+   */
+  function async(fn, context) {
+    setTimeout(fn.bind(context), 0);
+  }
+
+  /**
    * Extends the destination object `dst` by copying all of the properties from
    * the `src` object(s) to `dst`. You can specify multiple `src` objects.
    * @function
@@ -1449,7 +1462,7 @@
    * Library version
    * @type {string}
    */
-  Flow.version = '2.2.1';
+  Flow.version = '2.3.0';
 
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     // Expose Flow as module.exports in loaders that implement the Node
@@ -1548,7 +1561,7 @@ angular.module('flow.init', ['flow.provider'])
       args.shift();
       var event = $scope.$broadcast.apply($scope, ['flow::' + eventName, flow].concat(args));
       if ({
-        'progress':1, 'filesSubmitted':1, 'fileSuccess': 1, 'fileError': 1
+        'progress':1, 'filesSubmitted':1, 'fileSuccess': 1, 'fileError': 1, 'complete': 1
       }[eventName]) {
         $scope.$apply();
       }
@@ -1681,6 +1694,9 @@ angular.module('flow.drop', ['flow.init'])
 
   angular.forEach(events, function (eventArgs, eventName) {
     var name = 'flow' + capitaliseFirstLetter(eventName);
+    if (name == 'flowUploadStart') {
+      name = 'flowUploadStarted';// event alias
+    }
     module.directive(name, [function() {
       return {
         require: '^flowInit',
