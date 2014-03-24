@@ -16,6 +16,9 @@
 
   angular.forEach(events, function (eventArgs, eventName) {
     var name = 'flow' + capitaliseFirstLetter(eventName);
+    if (name == 'flowUploadStart') {
+      name = 'flowUploadStarted';// event alias
+    }
     module.directive(name, [function() {
       return {
         require: '^flowInit',

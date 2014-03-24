@@ -39,6 +39,27 @@ describe('events', function () {
     });
   });
 
+  describe('uploadStart event should be aliased', function () {
+    var uploadStart;
+    beforeEach(inject(function(){
+      $rootScope.uploadStart = jasmine.createSpy('uploadStart');
+      element = $compile('<div flow-init flow-upload-started="uploadStart($file)">' +
+        '</div>')($rootScope);
+      $rootScope.$digest();
+      elementScope = element.scope();
+    }));
+    it('should catch broadcast event', function () {
+      uploadStart = jasmine.createSpy('uploadStart');
+      elementScope.$on('flow::uploadStart', uploadStart);
+      elementScope.$flow.fire('uploadStart');
+      expect(uploadStart.callCount).toBe(1);
+    });
+    it('should execute scope function', function () {
+      elementScope.$flow.fire('uploadStart');
+      expect($rootScope.uploadStart.callCount).toBe(1);
+    });
+  });
+
   it('should call event', function () {
     elementScope.$flow.fire('fileProgress', 'file');
     expect($rootScope.fileProgress).toHaveBeenCalledWith('file');
