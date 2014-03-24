@@ -160,7 +160,7 @@ Events are listed inside `flow-init` directive:
       flow-file-error=" ... properties '$file', '$message' can be accessed ... "
       flow-error=" ... properties '$file', '$message' can be accessed ... "
       flow-complete=" ... "
-      flow-upload-start=" ... "
+      flow-upload-started=" ... "
       flow-progress=" ... "
       >
       <div flow-file-progress=" ... events can be also assigned inside flow-init ... "></div>
