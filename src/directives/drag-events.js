@@ -7,7 +7,7 @@ angular.module('flow.dragEvents', ['flow.init'])
     return {
       'scope': false,
       'link': function(scope, element, attrs) {
-        element.bind('drop', function (event) {
+        element.bind('drop dragover', function (event) {
           event.preventDefault();
         });
       }
