@@ -69,6 +69,31 @@ Files array is attached to flow object named `$flow`.
 file is instance of [FlowFile](https://github.com/flowjs/flow.js#flowfile).
 
 
+### Quick setup
+````html
+<div flow-init="{target: '/upload'}"
+     flow-files-submitted="$flow.upload()">
+
+  <input type="file" flow-btn/>
+  Input OR Other element as upload button
+  <span class="btn" flow-btn>Upload File</span>
+
+  <table>
+    <tr ng-repeat="file in $flow.files">
+        <td>{{$index+1}}</td>
+        <td>{{file.name}}</td>
+    </tr>
+  </table>
+</div>
+```
+
+
+Need more examples?
+============
+Clone this repository and go to "ng-flow/samples/basic/index.html".
+Single image upload "ng-flow/samples/image/index.html".
+
+
 How can I drop files?
 ============
 
@@ -78,6 +103,8 @@ Use `flow-drop` directive:
     Drag And Drop your file here
 </div>
 ````
+Note: in most cases `flow-drop` must be used together with `flow-prevent-drop` directive on `body`
+element, because it prevents file from being loaded in the browser.
 
 ### Prevent dropping files on a document
 Use `flow-prevent-drop` directive on `body` element:
@@ -125,8 +152,7 @@ var app = angular.module('app', ['flow'])
 .config(['flowFactoryProvider', function (flowFactoryProvider) {
     flowFactoryProvider.defaults = {
         target: '/upload',
-        permanentErrors:[404, 500, 501],
-        minFileSize: 0
+        permanentErrors:[404, 500, 501]
     };
     // You can also set default events:
     flowFactoryProvider.on('catchAll', function (event) {
@@ -199,12 +225,6 @@ var app = angular.module('app', ['flow'])
     flowFactoryProvider.factory = fustyFlowFactory;
 }]);
 ````
-
-Need example?
-============
-Clone this repository and go to "ng-flow/samples/basic/index.html".
-Single image upload "ng-flow/samples/image/index.html".
-
 
 Contribution
 ============
