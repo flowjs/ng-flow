@@ -81,7 +81,8 @@
       generateUniqueIdentifier: null,
       maxChunkRetries: 0,
       chunkRetryInterval: null,
-      permanentErrors: [404, 415, 500, 501]
+      permanentErrors: [404, 415, 500, 501],
+      onDropStopPropagation: false
     };
 
     /**
@@ -106,7 +107,9 @@
      * @param {MouseEvent} event
      */
     this.onDrop = function (event) {
-      event.stopPropagation();
+      if ($.opts.onDropStopPropagation) {
+        event.stopPropagation();
+      }
       event.preventDefault();
       var dataTransfer = event.dataTransfer;
       if (dataTransfer.items && dataTransfer.items[0] &&
@@ -1462,7 +1465,7 @@
    * Library version
    * @type {string}
    */
-  Flow.version = '2.3.0';
+  Flow.version = '2.4.0';
 
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     // Expose Flow as module.exports in loaders that implement the Node
@@ -1621,20 +1624,24 @@ angular.module('flow.dragEvents', ['flow.init'])
       'scope': false,
       'link': function(scope, element, attrs) {
         var promise;
+        var enter = false;
         element.bind('dragover', function (event) {
           if (!isFileDrag(event)) {
             return ;
           }
-          if (!promise) {
+          if (!enter) {
             scope.$apply(attrs.flowDragEnter);
-          } else {
-            $timeout.cancel(promise);
+            enter = true;
           }
+          $timeout.cancel(promise);
+          event.preventDefault();
+        });
+        element.bind('dragleave drop', function (event) {
           promise = $timeout(function () {
             scope.$eval(attrs.flowDragLeave);
             promise = null;
+            enter = false;
           }, 100);
-          event.preventDefault();
         });
         function isFileDrag(dragEvent) {
           var fileDrag = false;
