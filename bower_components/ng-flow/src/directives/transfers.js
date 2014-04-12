@@ -1,8 +1,8 @@
-angular.module('ngFlow.transfers', ['ngFlow.init'])
-.directive('ngFlowTransfers', [function() {
+angular.module('flow.transfers', ['flow.init'])
+.directive('flowTransfers', [function() {
   return {
     'scope': true,
-    'require': '^ngFlowInit',
+    'require': '^flowInit',
     'link': function(scope) {
       scope.transfers = scope.$flow.files;
     }

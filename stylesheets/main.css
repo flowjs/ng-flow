@@ -1,3 +1,13 @@
+.features {
+    float: right;
+    width: 300px;
+    padding-left: 20px;
+}
+.features .heading {
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .drop {
     padding: 15px;
     border: 2px #f1f1f1 dashed;
@@ -17,8 +27,26 @@
 .thumbnail {
     line-height: 20px;
     margin-bottom: 5px;
+    overflow: hidden;
 }
 .thumbnail img {
     max-width: 200px;
     max-height: 150px;
+}
+
+.gallery-box {
+    width: 200px;
+    padding: 5px;
+    margin: 7px;
+    float: left;
+    min-height: 200px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+}
+.gallery-box .progress {
+    margin-bottom: 0;
+}
+.gallery-box .thumbnail {
+    height: 188px;
+    width: 188px;
 }

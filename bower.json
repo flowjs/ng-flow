@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "angular": "~1",
-    "ng-flow": "~1",
+    "ng-flow": "~2",
     "fusty-flow.js": "~1"
   }
 }

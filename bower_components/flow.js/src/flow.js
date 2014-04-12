@@ -81,7 +81,8 @@
       generateUniqueIdentifier: null,
       maxChunkRetries: 0,
       chunkRetryInterval: null,
-      permanentErrors: [404, 415, 500, 501]
+      permanentErrors: [404, 415, 500, 501],
+      onDropStopPropagation: false
     };
 
     /**
@@ -92,11 +93,11 @@
 
     /**
      * List of events:
-     *  even indexes stand for event names
-     *  odd indexes stands for event callbacks
-     * @type {Array}
+     *  key stands for event name
+     *  value array list of callbacks
+     * @type {}
      */
-    this.events = [];
+    this.events = {};
 
     var $ = this;
 
@@ -106,7 +107,9 @@
      * @param {MouseEvent} event
      */
     this.onDrop = function (event) {
-      event.stopPropagation();
+      if ($.opts.onDropStopPropagation) {
+        event.stopPropagation();
+      }
       event.preventDefault();
       var dataTransfer = event.dataTransfer;
       if (dataTransfer.items && dataTransfer.items[0] &&
@@ -145,7 +148,32 @@
      * @param {Function} callback
      */
     on: function (event, callback) {
-      this.events.push(event.toLowerCase(), callback);
+      event = event.toLowerCase();
+      if (!this.events.hasOwnProperty(event)) {
+        this.events[event] = [];
+      }
+      this.events[event].push(callback);
+    },
+
+    /**
+     * Remove event callback
+     * @function
+     * @param {string} [event] removes all events if not specified
+     * @param {Function} [fn] removes all callbacks of event if not specified
+     */
+    off: function (event, fn) {
+      if (event !== undefined) {
+        event = event.toLowerCase();
+        if (fn !== undefined) {
+          if (this.events.hasOwnProperty(event)) {
+            arrayRemove(this.events[event], fn);
+          }
+        } else {
+          delete this.events[event];
+        }
+      } else {
+        this.events = {};
+      }
     },
 
     /**
@@ -159,16 +187,16 @@
     fire: function (event, args) {
       // `arguments` is an object, not array, in FF, so:
       args = Array.prototype.slice.call(arguments);
-      // Find event listeners, and support pseudo-event `catchAll`
       event = event.toLowerCase();
       var preventDefault = false;
-      for (var i = 0; i <= this.events.length; i += 2) {
-        if (this.events[i] === event) {
-          preventDefault = this.events[i + 1].apply(this, args.slice(1)) === false || preventDefault;
-        }
-        if (this.events[i] === 'catchall') {
-          preventDefault = this.events[i + 1].apply(null, args) === false || preventDefault;
-        }
+      if (this.events.hasOwnProperty(event)) {
+        each(this.events[event], function (callback) {
+          preventDefault = callback.apply(this, args.slice(1)) === false || preventDefault;
+        });
+      }
+      if (event != 'catchall') {
+        args.unshift('catchAll');
+        preventDefault = this.fire.apply(this, args) === false || preventDefault;
       }
       return !preventDefault;
     },
@@ -302,7 +330,9 @@
       });
       if (!outstanding && !preventEvents) {
         // All chunks have been uploaded, complete
-        this.fire('complete');
+        async(function () {
+          this.fire('complete');
+        }, this);
       }
       return false;
     },
@@ -321,10 +351,6 @@
         domNodes = [domNodes];
       }
 
-      // We will create an <input> and overlay it on the domNode
-      // (crappy, but since HTML5 doesn't have a cross-browser.browse() method
-      // we haven't a choice. FF4+ allows click() for this though:
-      // https://developer.mozilla.org/en/using_files_from_web_applications)
       each(domNodes, function (domNode) {
         var input;
         if (domNode.tagName === 'INPUT' && domNode.type === 'file') {
@@ -332,29 +358,20 @@
         } else {
           input = document.createElement('input');
           input.setAttribute('type', 'file');
-          // input fill entire dom node
-          extend(domNode.style, {
-            display: 'inline-block',
-            position: 'relative',
-            overflow: 'hidden',
-            verticalAlign: 'top'
-          });
-          // in Opera only 'browse' button
-          // is clickable and it is located at
-          // the right side of the input
+          // display:none - not working in opera 12
           extend(input.style, {
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            fontFamily: 'Arial',
-            // 4 persons reported this, the max values that worked for them were 243, 236, 236, 118
-            fontSize: '118px',
-            margin: 0,
-            padding: 0,
-            opacity: 0,
-            cursor: 'pointer'
+            visibility: 'hidden',
+            position: 'absolute'
           });
+          // for opera 12 browser, input must be assigned to a document
           domNode.appendChild(input);
+          // https://developer.mozilla.org/en/using_files_from_web_applications)
+          // event listener is executed two times
+          // first one - original mouse click event
+          // second - input.click(), input is inside domNode
+          domNode.addEventListener('click', function() {
+            input.click();
+          }, false);
         }
         if (!this.opts.singleFile && !singleFile) {
           input.setAttribute('multiple', 'multiple');
@@ -436,7 +453,9 @@
         started = this.uploadNextChunk(true) || started;
       }
       if (!started) {
-        this.fire('complete');
+        async(function () {
+          this.fire('complete');
+        }, this);
       }
     },
 
@@ -1360,8 +1379,26 @@
     }
   };
 
+  /**
+   * Remove value from array
+   * @param array
+   * @param value
+   */
+  function arrayRemove(array, value) {
+    var index = array.indexOf(value);
+    if (index > -1) {
+      array.splice(index, 1);
+    }
+  }
 
-
+  /**
+   * Execute function asynchronously
+   * @param fn
+   * @param context
+   */
+  function async(fn, context) {
+    setTimeout(fn.bind(context), 0);
+  }
 
   /**
    * Extends the destination object `dst` by copying all of the properties from
@@ -1428,16 +1465,27 @@
    * Library version
    * @type {string}
    */
-  Flow.version = '2.0.0';
+  Flow.version = '<%= version %>';
 
-  if (typeof module !== 'undefined') {
+  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    // Expose Flow as module.exports in loaders that implement the Node
+    // module pattern (including browserify). Do not create the global, since
+    // the user will be storing it themselves locally, and globals are frowned
+    // upon in the Node module world.
     module.exports = Flow;
-  } else if (typeof define === "function" && define.amd) {
-    // AMD/requirejs: Define the module
-    define(function(){
-      return Flow;
-    });
   } else {
+    // Otherwise expose Flow to the global object as usual
     window.Flow = Flow;
+
+    // Register as a named AMD module, since Flow can be concatenated with other
+    // files that may use define, but not via a proper concatenation script that
+    // understands anonymous AMD modules. A named AMD is safest and most robust
+    // way to register. Lowercase flow is used because AMD module names are
+    // derived from file names, and Flow is normally delivered in a lowercase
+    // file name. Do this after creating the global so that if an AMD module wants
+    // to call noConflict to hide this version of Flow, it will work.
+    if ( typeof define === "function" && define.amd ) {
+      define( "flow", [], function () { return Flow; } );
+    }
   }
 })(window, document);

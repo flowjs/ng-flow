@@ -1,11 +1,11 @@
 /**
  * @description
- * var app = angular.module('App', ['ngFlow.provider'], function(flowFactoryProvider){
+ * var app = angular.module('App', ['flow.provider'], function(flowFactoryProvider){
  *    flowFactoryProvider.defaults = {target: '/'};
  * });
  * @name flowFactoryProvider
  */
-angular.module('ngFlow.provider', [])
+angular.module('flow.provider', [])
 .provider('flowFactory', function() {
   'use strict';
   /**

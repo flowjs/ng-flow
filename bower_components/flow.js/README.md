@@ -15,11 +15,14 @@ Samples and examples are available in the `samples/` folder. Please push your ow
 JQuery and node.js backend demo https://github.com/flowjs/flow.js/tree/master/samples/Node.js
 
 ## How can I install it?
-use bower:
+
+Download a latest build from https://github.com/flowjs/flow.js/releases
+it contains development and minified production files in `dist/` folder.
+
+or use bower:
 
         bower install flow.js#~2
-use cdn, look for available packages at http://www.jsdelivr.com/#!flow.js
-        
+                
 or use git clone
 
         git clone https://github.com/flowjs/flow.js
@@ -134,6 +137,10 @@ To prevent multiple file uploads set singleFile to true.
 Note: avoid using `a` and `button` tags as file upload buttons, use span instead.
 * `.assignDrop(domNodes)` Assign one or more DOM nodes as a drop target.
 * `.on(event, callback)` Listen for event from Flow.js (see below)
+* `.off([event, [callback]])`:
+    * `.off()` All events are removed.
+    * `.off(event)` Remove all callbacks of specific event.
+    * `.off(event, callback)` Remove specific callback of event. `callback` should be a `Function`.
 * `.upload()` Start or resume uploading.
 * `.pause()` Pause uploading.
 * `.resume()` Resume uploading.

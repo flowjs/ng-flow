@@ -1,6 +1,6 @@
 {
   "name": "flow.js",
-  "version": "2.0.0",
+  "version": "2.4.0",
   "description": "Flow.js library implements html5 file upload and provides multiple simultaneous, stable, fault tolerant and resumable uploads.",
   "main": "src/flow.js",
   "scripts": {
@@ -34,12 +34,17 @@
     "karma-firefox-launcher": "*",
     "karma-ie-launcher": "*",
     "karma-jasmine": "~0.1",
-    "karma": "0.10.1",
-    "grunt-karma": "0.6.1",
+    "karma": "~0.12",
+    "grunt-karma": "0.8.2",
     "grunt-saucelabs": "~4.0.4",
     "karma-sauce-launcher": "~0.1.0",
     "sinon": "~1.7.3",
     "karma-coverage": "0.1.0",
-    "grunt-karma-coveralls": "~2.0.2"
+    "grunt-karma-coveralls": "~2.0.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-bump": "0.0.13",
+    "grunt-template": "~0.2.3"
   }
 }
