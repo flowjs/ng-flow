@@ -15,7 +15,8 @@
     line-height: 34px;
 }
 .drop.drag-over {
-    background: darkseagreen;
+    background: #5CB85C;
+    color: #fff
 }
 .transfer-box {
     margin-bottom: 5px;
@@ -28,6 +29,7 @@
     line-height: 20px;
     margin-bottom: 5px;
     overflow: hidden;
+    word-break: normal;
 }
 .thumbnail img {
     max-width: 200px;
@@ -49,4 +51,9 @@
 .gallery-box .thumbnail {
     height: 188px;
     width: 188px;
+}
+.gallery-box .title {
+    height: 22px;
+    overflow: hidden;
+    display: block;
 }

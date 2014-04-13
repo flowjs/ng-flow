@@ -221,48 +221,31 @@ footer {
 
 }
 
-@media print, screen and (max-width: 960px) {
-
-    div.wrapper {
-        width: auto;
-        margin: 0;
-    }
-
-    header, section, footer {
-        float: none;
-        position: static;
-        width: auto;
-    }
-
-    section {
-        border: 1px solid #e5e5e5;
-        border-width: 1px 0;
-        padding: 20px 0;
-        margin: 0 0 20px;
-    }
-
-    header a small {
-        display: inline;
-    }
-}
-
 @media print, screen and (max-width: 720px) {
     body {
-        word-wrap: break-word;
+        padding: 20px 0;
+    }
+    .wrapper {
+        width: 680px;
     }
 
-    pre, code {
-        word-wrap: normal;
+    header .view {
+        width: 310px;
+        margin-left: 100px;
     }
 }
 
 @media print, screen and (max-width: 480px) {
     body {
-        padding: 15px;
+        padding: 15px 0;
+    }
+    .wrapper {
+        width: 440px;
     }
 
-    header ul {
-        display: none;
+    header .view {
+        width: 210px;
+        margin-left: 10px;
     }
 }
 

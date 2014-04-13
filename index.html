@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>angular file upload</title>
+    <title>Angular file upload - flow.js</title>
     <meta name="description"
           content="Flow.js html5 file upload extension on angular.js framework. No third party dependencies required for angular file upload library."/>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
@@ -158,7 +158,7 @@
   <div>
 
     <div ng-repeat="file in $flow.files" class="gallery-box">
-      {{file.name}}
+      <span class="title">{{file.name}}</span>
       <div class="thumbnail" ng-show="$flow.files.length">
         <img flow-img="file" />
       </div>
@@ -210,7 +210,7 @@
 
       </section>
       <footer>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p><small>Hosted on GitHub Pages</small></p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
