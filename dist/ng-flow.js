@@ -104,7 +104,8 @@ angular.module('flow.btn', ['flow.init'])
     'link': function(scope, element, attrs) {
       var isDirectory = attrs.hasOwnProperty('flowDirectory');
       var isSingleFile = attrs.hasOwnProperty('flowSingleFile');
-      scope.$flow.assignBrowse(element, isDirectory, isSingleFile);
+      var inputAttrs = attrs.hasOwnProperty('flowAttrs') && scope.$eval(attrs.flowAttrs);
+      scope.$flow.assignBrowse(element, isDirectory, isSingleFile, inputAttrs);
     }
   };
 }]);
