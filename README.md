@@ -72,7 +72,8 @@ file is instance of [FlowFile](https://github.com/flowjs/flow.js#flowfile).
 ### Quick setup
 ````html
 <div flow-init="{target: '/upload'}"
-     flow-files-submitted="$flow.upload()">
+     flow-files-submitted="$flow.upload()"
+     flow-file-success="$file.msg = $message">
 
   <input type="file" flow-btn/>
   Input OR Other element as upload button
@@ -82,11 +83,11 @@ file is instance of [FlowFile](https://github.com/flowjs/flow.js#flowfile).
     <tr ng-repeat="file in $flow.files">
         <td>{{$index+1}}</td>
         <td>{{file.name}}</td>
+        <td>{{file.msg}}</td>
     </tr>
   </table>
 </div>
 ```
-
 
 Need more examples?
 ============

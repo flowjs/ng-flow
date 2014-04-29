@@ -29,8 +29,8 @@
       <img flow-img="$flow.files[0]" />
     </div>
     <div>
-      <a href="#" class="btn" ng-hide="$flow.files.length" flow-btn>Select image</a>
-      <a href="#" class="btn" ng-show="$flow.files.length" flow-btn>Change</a>
+      <a href="#" class="btn" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</a>
+      <a href="#" class="btn" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</a>
       <a href="#" class="btn btn-danger" ng-show="$flow.files.length"
          ng-click="$flow.cancel()">
         Remove
