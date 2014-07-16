@@ -46,7 +46,7 @@ module.exports = function(grunt) {
       }
     },
     clean: {
-      release: ["dist/"]
+      release: ["dist/ng*"]
     },
     bump: {
       options: {
