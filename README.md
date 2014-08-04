@@ -216,6 +216,18 @@ Use `flow-name` attribute and set it to any variable in the scope.
 </div>
 ````
 
+How can I initialize flow with an existing flow object ?
+============
+
+Use `flow-object` attribute and set it with the existing flow object on scope.
+````html
+<div flow-init flow-object="existingFlowObject">
+    ... Flow is initialized with existingFlowObject, no new Flow object  is created ...
+    There are already {{ existingFLowObject.files.length }} files uploaded,
+    which is equal to {{ $flow.files.lengh }}.
+</div>
+````
+
 How can I support older browsers?
 ============
 Go to https://github.com/flowjs/fusty-flow.js
