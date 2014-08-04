@@ -3,12 +3,14 @@ describe('init', function() {
   var $rootScope;
   var element;
   var elementScope;
+  var flowFactory;
 
   beforeEach(module('flow'));
 
-  beforeEach(inject(function(_$compile_, _$rootScope_){
+  beforeEach(inject(function(_$compile_, _$rootScope_, _flowFactory_){
     $compile = _$compile_;
     $rootScope = _$rootScope_;
+    flowFactory = _flowFactory_;
     element = $compile('<div flow-init></div>')($rootScope);
     $rootScope.$digest();
     elementScope = element.scope();
@@ -46,5 +48,24 @@ describe('init', function() {
       elementScope.$destroy();
       expect($rootScope.obj.flow).toBeUndefined();
     });
+  });
+
+  describe('flow-object', function () {
+    it('should create a new flow object', function () {
+      spyOn(flowFactory, 'create').andCallThrough();
+      $compile('<div flow-init></div>')($rootScope);
+      $rootScope.$digest();
+      expect(flowFactory.create).toHaveBeenCalled();
+    });
+    it('should init with the existing flow object', function () {
+      $rootScope.existingFlow = flowFactory.create();
+      spyOn(flowFactory, 'create').andCallThrough();
+      element = $compile('<div flow-init flow-object="existingFlow"></div>')($rootScope);
+      elementScope = element.scope();
+      $rootScope.$digest();
+      expect(flowFactory.create).not.toHaveBeenCalled();
+      expect($rootScope.existingFlow).toBe(elementScope.$flow);
+    });
+
   });
 });
