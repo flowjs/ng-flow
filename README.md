@@ -224,7 +224,7 @@ Use `flow-object` attribute and set it with the existing flow object on scope.
 <div flow-init flow-object="existingFlowObject">
     ... Flow is initialized with existingFlowObject, no new Flow object  is created ...
     There are already {{ existingFLowObject.files.length }} files uploaded,
-    which is equal to {{ $flow.files.lengh }}.
+    which is equal to {{ $flow.files.length }}.
 </div>
 ````
 
