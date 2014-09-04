@@ -7,14 +7,8 @@ angular.module('flow.dragEvents', ['flow.init'])
     return {
       'scope': false,
       'link': function(scope, element, attrs) {
-        var drop = function(event) {
+        element.bind('drop dragover', function (event) {
           event.preventDefault();
-        }
-
-        element.bind('drop dragover', drop);
-
-        scope.$on('$destroy', function() {
-          element.unbind('drop dragover', drop);
         });
       }
     };
@@ -29,36 +23,24 @@ angular.module('flow.dragEvents', ['flow.init'])
       'link': function(scope, element, attrs) {
         var promise;
         var enter = false;
-
-        var dragOver = function(event) {
-            if (!isFileDrag(event)) {
-                return ;
-            }
-            if (!enter) {
-                scope.$apply(attrs.flowDragEnter);
-                enter = true;
-            }
-            $timeout.cancel(promise);
-            event.preventDefault();
-        }
-
-        element.bind('dragover', dragOver);
-
-        var dragLeave = function(event) {
-            promise = $timeout(function () {
-                scope.$eval(attrs.flowDragLeave);
-                promise = null;
-                enter = false;
-            }, 100);
-        }
-
-        element.bind('dragleave drop', dragLeave);
-
-        scope.$on('$destroy', function() {
-            element.unbind('dragover', dragOver);
-            element.unbind('dragleave drop', dragLeave);
+        element.bind('dragover', function (event) {
+          if (!isFileDrag(event)) {
+            return ;
+          }
+          if (!enter) {
+            scope.$apply(attrs.flowDragEnter);
+            enter = true;
+          }
+          $timeout.cancel(promise);
+          event.preventDefault();
         });
-        
+        element.bind('dragleave drop', function (event) {
+          promise = $timeout(function () {
+            scope.$eval(attrs.flowDragLeave);
+            promise = null;
+            enter = false;
+          }, 100);
+        });
         function isFileDrag(dragEvent) {
           var fileDrag = false;
           var dataTransfer = dragEvent.dataTransfer || dragEvent.originalEvent.dataTransfer;
