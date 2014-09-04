@@ -63,9 +63,11 @@ angular.module('flow.provider', [])
 angular.module('flow.init', ['flow.provider'])
   .controller('flowCtrl', ['$scope', '$attrs', '$parse', 'flowFactory',
   function ($scope, $attrs, $parse, flowFactory) {
-    // create the flow object
+
     var options = angular.extend({}, $scope.$eval($attrs.flowInit));
-    var flow = flowFactory.create(options);
+
+    // use existing flow object or create a new one
+    var flow  = $scope.$eval($attrs.flowObject) || flowFactory.create(options);
 
     flow.on('catchAll', function (eventName) {
       var args = Array.prototype.slice.call(arguments);
