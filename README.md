@@ -52,9 +52,12 @@ Secondly you need to assign some upload buttons:
 ````html
 <input type="file" flow-btn />
 <input type="file" flow-btn flow-directory />
+  Input OR Other element as upload button
+<span flow-btn>Upload File</span>
 ````
 
 First button is for normal uploads and second is for directory uploads.
+Note: avoid using `<a>` and `<button>` tags as file upload buttons, use `<span>` instead.
 
 
 Now you need to display uploaded files, all you need to do is to loop files array.
