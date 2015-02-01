@@ -1,6 +1,6 @@
 {
   "name": "ng-flow",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "description": "Flow.js html5 file upload extension on angular.js framework",
   "scripts": {
     "test": "grunt test"

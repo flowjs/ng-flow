@@ -148,6 +148,7 @@ angular.module('flow.dragEvents', ['flow.init'])
           event.preventDefault();
         });
         element.bind('dragleave drop', function (event) {
+          $timeout.cancel(promise);
           promise = $timeout(function () {
             scope.$eval(attrs.flowDragLeave);
             promise = null;
@@ -167,6 +168,7 @@ angular.module('flow.dragEvents', ['flow.init'])
       }
     };
   }]);
+
 angular.module('flow.drop', ['flow.init'])
 .directive('flowDrop', function() {
   return {
