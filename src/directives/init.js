@@ -7,6 +7,8 @@ angular.module('flow.init', ['flow.provider'])
     // use existing flow object or create a new one
     var flow  = $scope.$eval($attrs.flowObject) || flowFactory.create(options);
 
+    flow.off('catchAll');
+
     flow.on('catchAll', function (eventName) {
       var args = Array.prototype.slice.call(arguments);
       args.shift();
