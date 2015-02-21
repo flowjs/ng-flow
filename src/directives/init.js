@@ -7,21 +7,23 @@ angular.module('flow.init', ['flow.provider'])
     // use existing flow object or create a new one
     var flow  = $scope.$eval($attrs.flowObject) || flowFactory.create(options);
 
-    flow.off('catchAll');
+    if(!flow.ngFlowInit){
+      flow.ngFlowInit = true;
 
-    flow.on('catchAll', function (eventName) {
-      var args = Array.prototype.slice.call(arguments);
-      args.shift();
-      var event = $scope.$broadcast.apply($scope, ['flow::' + eventName, flow].concat(args));
-      if ({
-        'progress':1, 'filesSubmitted':1, 'fileSuccess': 1, 'fileError': 1, 'complete': 1
-      }[eventName]) {
-        $scope.$apply();
-      }
-      if (event.defaultPrevented) {
-        return false;
-      }
-    });
+      flow.on('catchAll', function (eventName) {
+        var args = Array.prototype.slice.call(arguments);
+        args.shift();
+        var event = $scope.$broadcast.apply($scope, ['flow::' + eventName, flow].concat(args));
+        if ({
+                'progress':1, 'filesSubmitted':1, 'fileSuccess': 1, 'fileError': 1, 'complete': 1
+            }[eventName]) {
+            $scope.$apply();
+        }
+        if (event.defaultPrevented) {
+            return false;
+        }
+      });
+    }
 
     $scope.$flow = flow;
     if ($attrs.hasOwnProperty('flowName')) {

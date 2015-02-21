@@ -73,10 +73,10 @@ describe('init', function() {
       elementScope = element.scope();
       $rootScope.$digest();
 
-      expect($rootScope.existingFlow).toBe(elementScope.$flow);
+      spyOn(elementScope.$broadcast, 'apply').andCallThrough();
+      $rootScope.existingFlow.fire('fileProgress', 'file');
 
-      expect($rootScope.existingFlow.events.catchall).toBeDefined();
-      expect($rootScope.existingFlow.events.catchall.length).toBe(1);
+      expect(elementScope.$broadcast.apply.callCount).toEqual(1);
     });
   });
 });
