@@ -66,6 +66,26 @@ describe('init', function() {
       expect(flowFactory.create).not.toHaveBeenCalled();
       expect($rootScope.existingFlow).toBe(elementScope.$flow);
     });
+    it('should remove event handlers from flow when the scope is destroyed', function () {
+      $rootScope.existingFlow = flowFactory.create();
+      element = $compile('<div flow-init flow-object="existingFlow"></div>')($rootScope);
+      elementScope = element.scope();
 
+      $compile('<div flow-init flow-object="existingFlow"></div>')($rootScope);
+      $rootScope.$digest();
+
+      var scopePrototype = Object.getPrototypeOf(elementScope);
+      spyOn(scopePrototype, '$broadcast').andCallThrough();
+
+      $rootScope.existingFlow.fire('fileProgress', 'file');
+      expect(elementScope.$broadcast.callCount).toEqual(2);
+
+      elementScope.$destroy();
+      scopePrototype.$broadcast.reset();
+
+      $rootScope.existingFlow.fire('fileProgress', 'file');
+      expect(elementScope.$broadcast.callCount).toEqual(1);
+
+    });
   });
 });
