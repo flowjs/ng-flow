@@ -66,6 +66,17 @@ describe('init', function() {
       expect(flowFactory.create).not.toHaveBeenCalled();
       expect($rootScope.existingFlow).toBe(elementScope.$flow);
     });
+    it('should not create multiple event handlers for an existing flow object', function () {
+      $rootScope.existingFlow = flowFactory.create();
+      $compile('<div flow-init flow-object="existingFlow"></div>')($rootScope);
+      element = $compile('<div flow-init flow-object="existingFlow"></div>')($rootScope);
+      elementScope = element.scope();
+      $rootScope.$digest();
 
+      spyOn(elementScope.$broadcast, 'apply').andCallThrough();
+      $rootScope.existingFlow.fire('fileProgress', 'file');
+
+      expect(elementScope.$broadcast.apply.callCount).toEqual(1);
+    });
   });
 });
