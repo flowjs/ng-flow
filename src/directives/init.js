@@ -7,7 +7,7 @@ angular.module('flow.init', ['flow.provider'])
     // use existing flow object or create a new one
     var flow  = $scope.$eval($attrs.flowObject) || flowFactory.create(options);
 
-    flow.on('catchAll', function (eventName) {
+    var catchAllHandler = function(eventName){
       var args = Array.prototype.slice.call(arguments);
       args.shift();
       var event = $scope.$broadcast.apply($scope, ['flow::' + eventName, flow].concat(args));
@@ -19,9 +19,15 @@ angular.module('flow.init', ['flow.provider'])
       if (event.defaultPrevented) {
         return false;
       }
+    };
+
+    flow.on('catchAll', catchAllHandler);
+    $scope.$on('$destroy', function(){
+        flow.off('catchAll', catchAllHandler);
     });
 
     $scope.$flow = flow;
+
     if ($attrs.hasOwnProperty('flowName')) {
       $parse($attrs.flowName).assign($scope, flow);
       $scope.$on('$destroy', function () {
