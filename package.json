@@ -20,7 +20,7 @@
     "file upload",
     "upload"
   ],
-  "author": "Aidas Klimas/Jose Luis Campaña",
+  "author": "Aidas Klimas, adapted by Jose Luis Campaña",
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
