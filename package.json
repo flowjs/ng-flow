@@ -1,7 +1,7 @@
 {
   "name": "zyncro-ng-flow",
-  "version": "1.0.1",
-  "description": "Flow.js html5 file upload extension on angular.js 1.2.28 framework",
+  "version": "z1.0.1",
+  "description": "Zyncro hack of ng-flow working on Angular 1.2.28",
   "scripts": {
     "test": "grunt test"
   },
@@ -20,7 +20,7 @@
     "file upload",
     "upload"
   ],
-  "author": "Aidas Klimas, adapted by Jose Luis Campaña",
+  "author": "Aidas Klimas hacked by Jose Luis Campaña",
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
