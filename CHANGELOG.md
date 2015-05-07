@@ -1,3 +1,6 @@
+# 2.0.0 Zyncro
+ - Broadcast message send by $scope.$parent instead $scope
+ 
 # 2.0.0
 
 ## Features

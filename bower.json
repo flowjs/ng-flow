@@ -1,5 +1,5 @@
 {
-  "name": "ng-flow",
+  "name": "zyncro-ng-flow",
   "version": "2.6.1",
   "ignore": [
     "**/.*",
@@ -13,7 +13,7 @@
     "package.json",
     "bower.json"
   ],
-  "main": "./dist/ng-flow.js",
+  "main": "./dist/ng-flow-standalone.js",
   "dependencies": {
     "angular": "~1",
     "flow.js": "~2"
