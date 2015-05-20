@@ -181,17 +181,17 @@ How can I catch events?
 Events are listed inside `flow-init` directive:
 ````html
 <div flow-init
-      flow-file-success=" ... properties '$file', '$message' can be accessed ... "
-      flow-file-progress=" ... property '$file' can be accessed ... "
-      flow-file-added=" ... properties '$file', '$event' can be accessed ... "
-      flow-files-added=" ... properties '$files', '$event' can be accessed ... "
-      flow-files-submitted=" ... properties '$files', '$event' can be accessed ... "
-      flow-file-retry=" ... property '$file' can be accessed ... "
-      flow-file-error=" ... properties '$file', '$message' can be accessed ... "
-      flow-error=" ... properties '$file', '$message' can be accessed ... "
-      flow-complete=" ... "
-      flow-upload-started=" ... "
-      flow-progress=" ... "
+        flow-file-success="someHandlerMethod( $file, $message, $flow )"
+        flow-file-progress="someHandlerMethod( $file, $flow )"
+        flow-file-added="someHandlerMethod( $file, $event, $flow )"
+        flow-files-added="someHandlerMethod( $files, $event, $flow )"
+        flow-files-submitted="someHandlerMethod( $files, $event, $flow )"
+        flow-file-retry="someHandlerMethod( $file, $flow )"
+        flow-file-error="someHandlerMethod( $file, $message, $flow )"
+        flow-error="someHandlerMethod( $file, $message, $flow )"
+        flow-complete=" ... "
+        flow-upload-started=" ... "
+        flow-progress=" ... "
       >
       <div flow-file-progress=" ... events can be also assigned inside flow-init ... "></div>
 
