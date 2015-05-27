@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	if (file_exists($chunkFile)) {
 		header("HTTP/1.0 200 Ok");
 	} else {
-		header("HTTP/1.0 404 Not Found");
+		header("HTTP/1.1 204 No Content");
 	}
 }
 // Just imitate that the file was uploaded and stored.
