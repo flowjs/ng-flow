@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/flowjs/ng-flow.svg)](https://travis-ci.org/flowjs/ng-flow)
+[![devDependency Status](https://david-dm.org/flowjs/ng-flow/dev-status.svg)](https://david-dm.org/flowjs/ng-flow#info=devDependencies)
+[![Coverage Status](https://coveralls.io/repos/flowjs/ng-flow/badge.svg?branch=master)](https://coveralls.io/r/flowjs/ng-flow?branch=master)
+
 What is ng-flow?
 ============
 
