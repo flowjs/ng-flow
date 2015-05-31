@@ -30,6 +30,7 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-karma": "~0.6.2",
     "grunt-coveralls": "~1.0.0",
+    "grunt-david": "~0.3.0",
     "grunt-bump": "0.0.13",
     "grunt-contrib-clean": "~0.5.0",
     "karma-coverage": "~0.3.1",
