@@ -65,6 +65,14 @@ module.exports = function(grunt) {
         }
       }
     },
+    coveralls: {
+      options: {
+        force: true
+      },
+      main: {
+        src: 'test-results/lcov.info'
+      }
+    },
     clean: {
       release: ["dist/ng*"]
     },
@@ -92,7 +100,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['concat', 'uglify']);
   grunt.registerTask('test', ['karma:continuous']);
-  grunt.registerTask('travis', ['karma:travis']);
+  grunt.registerTask('travis', ['karma:travis','coveralls:main']);
   grunt.registerTask('watch', ['karma:watch']);
 
   grunt.registerTask('release', function(type) {
