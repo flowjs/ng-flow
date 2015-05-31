@@ -15,7 +15,6 @@ module.exports = function(config) {
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/flow.js/dist/flow.js',
 
-      'src/*.js',
       'src/**/*.js',
       'test/*.spec.js'
     ],
