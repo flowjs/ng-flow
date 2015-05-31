@@ -20,3 +20,6 @@ Thumbs.db
 
 # bower
 /bower_components/*
+
+# test coverage
+test-results

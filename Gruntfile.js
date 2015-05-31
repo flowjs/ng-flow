@@ -43,6 +43,26 @@ module.exports = function(grunt) {
       },
       continuous: {
         singleRun: true
+      },
+      travis: {
+        singleRun: true,
+        browsers: ['PhantomJS'],
+        reporters: ['progress', 'coverage'],
+        preprocessors: {
+          // source files, that you wanna generate coverage for
+          // do not include tests or libraries
+          // (these files will be instrumented by Istanbul)
+          'src/**/*.js': ['coverage']
+        },
+        coverageReporter: {
+            reporters: [
+                {
+                    type: 'lcov',
+                    dir: 'test-results/',
+                    subdir: '.'
+                }
+            ]
+        }
       }
     },
     clean: {
@@ -72,6 +92,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['concat', 'uglify']);
   grunt.registerTask('test', ['karma:continuous']);
+  grunt.registerTask('travis', ['karma:travis']);
   grunt.registerTask('watch', ['karma:watch']);
 
   grunt.registerTask('release', function(type) {
