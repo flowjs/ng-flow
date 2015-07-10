@@ -33,6 +33,15 @@ they are also concatenated with core flow.js library.
 
         angular.module('app', ['flow'])
         
+3) Include the files in your project
+```html
+<!-- concatenated flow.js + ng-flow libraries -->
+<script src="ng-flow/dist/ng-flow-standalone.min.js"></script>
+<!-- or include the files separately -->
+<script src="flow.js/dist/flow.min.js"></script>
+<script src="ng-flow/dist/ng-flow.min.js"></script>
+```
+
 How can I use it?
 ============
 
