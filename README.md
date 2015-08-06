@@ -227,6 +227,9 @@ Use `flow-name` attribute and set it to any variable in the scope.
     I have uploaded files: #{{obj.flow.files.length}}
 </div>
 ````
+````javascript
+$scope.obj = {}; // variable "obj" must be initialized on the scope
+````
 
 How can I initialize flow with an existing flow object ?
 ============
