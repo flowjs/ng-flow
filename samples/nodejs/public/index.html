@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html ng-app="ng-flow-sample" flow-init>
+  <head>
+    <meta charset="UTF-8">
+    <title>ng-flow sample</title>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
+
+    <script src="bower_components/angular/angular.js" type="text/javascript"></script>
+    <script src="bower_components/ng-flow/dist/ng-flow-standalone.js" type="text/javascript"></script>
+    <script src="scripts/app.js" type="text/javascript"></script>
+
+  </head>
+  <body flow-prevent-drop flow-drag-enter="dropClass='drag-over'" flow-drag-leave="dropClass=''">
+    <div class="container">
+        <h1>flow nodejs example</h1>
+
+        <form  enctype="multipart/form-data" name="uploadFile">
+            <div class="box-body">
+                <div class="row">
+                    <div flow-object="uploader.flow" flow-files-submitted="$flow.upload()" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+                        <div class="drop" flow-drop ng-class="dropClass">
+                            <span class="btn btn-default" flow-btn>Upload file</span>
+                            <span class="btn btn-default" flow-btn flow-directory ng-show="$flow.supportDirectory">Upload folder</span>
+                            <b>OR</b>
+                            Drag And Drop your file here
+                        </div>
+                        <br/>
+                        <div>
+                        <div ng-repeat="file in $flow.files" class="gallery-box">
+                            <span class="title">{{file.name}}</span>
+                            <div class="thumbnail" ng-show="$flow.files.length">
+                                <img flow-img="file" />
+                            </div>
+                            <div class="progress progress-striped" ng-class="{active: file.isUploading()}">
+                                <div class="progress-bar" role="progressbar"
+                                     aria-valuenow="{{file.progress() * 100}}"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     ng-style="{width: (file.progress() * 100) + '%'}">
+                                  <span class="sr-only">{{file.progress()}}% Complete</span>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn btn-xs btn-danger" ng-click="file.cancel()">remove</a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </body>
+</html>
