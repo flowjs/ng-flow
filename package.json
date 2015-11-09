@@ -5,6 +5,7 @@
   "scripts": {
     "test": "grunt test"
   },
+  "main": "dist/ng-flow.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/flowjs/ng-flow.git"
