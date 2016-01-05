@@ -22,5 +22,4 @@ Package.onUse(function(api) {
   api.use('digimet:flowjs@2.9.0', where);
 
   api.addFiles('./dist/ng-flow.js', where); // Files in use
-
 });

@@ -34,49 +34,47 @@ module.exports = function(grunt) {
         }
       }
     },
+    coveralls: {
+      options: {
+        coverageDir: 'coverage/'
+      }
+    },
     karma: {
       options: {
         configFile: 'karma.conf.js'
       },
-      watch: {
-
-      },
       continuous: {
         singleRun: true
       },
-      travis: {
+      coverage: {
         singleRun: true,
-        browsers: ['PhantomJS'],
+        browsers: ['Firefox'],
         reporters: ['progress', 'coverage'],
         preprocessors: {
-          // source files, that you wanna generate coverage for
-          // do not include tests or libraries
-          // (these files will be instrumented by Istanbul)
-          'src/**/*.js': ['coverage']
+          'src/**/*.js': 'coverage'
         },
         coverageReporter: {
-            reporters: [
-                {
-                    type: 'lcov',
-                    dir: 'test-results/',
-                    subdir: '.'
-                }
-            ]
+          type: "lcov",
+          dir: "coverage"
         }
-      }
-    },
-    coveralls: {
-      options: {
-        force: true
       },
-      main: {
-        src: 'test-results/lcov.info'
-      }
-    },
-    david: {
-      main: {
-        options: {
-          update: false
+      saucelabs: {
+        singleRun: true,
+        reporters: ['progress', 'saucelabs'],
+        preprocessors: {
+          'src/**/*.js': 'coverage'
+        },
+        coverageReporter: {
+          type: "lcov",
+          dir: "coverage/"
+        },
+        // global config for SauceLabs
+        sauceLabs: {
+          testName: 'ng-flow',
+          username: grunt.option('sauce-username') || process.env.SAUCE_USERNAME,
+          accessKey: grunt.option('sauce-access-key') || process.env.SAUCE_ACCESS_KEY,
+          tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+          startConnect: false
         }
       }
     },
@@ -105,15 +103,18 @@ module.exports = function(grunt) {
     if (key !== "grunt" && key.indexOf("grunt") === 0) grunt.loadNpmTasks(key);
   }
 
-  grunt.registerTask('build', ['concat', 'uglify']);
-  grunt.registerTask('test', ['karma:continuous']);
-  grunt.registerTask('travis', ['karma:travis','coveralls:main','david:main']);
-  grunt.registerTask('watch', ['karma:watch']);
+  // Default task.
+  grunt.registerTask('default', ['test']);
 
+  // Release tasks
+  grunt.registerTask('build', ['concat', 'uglify']);
   grunt.registerTask('release', function(type) {
     type = type ? type : 'patch';
     grunt.task.run('bump-only:' + type);
     grunt.task.run('clean', 'build');
     grunt.task.run('bump-commit');
   });
+
+  // Development
+  grunt.registerTask('test', ["karma:coverage"]);
 };

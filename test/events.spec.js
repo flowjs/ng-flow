@@ -29,8 +29,8 @@ describe('events', function () {
     }));
     it('should catch event on element scope', function () {
       expect(ngFileProgress).toHaveBeenCalled();
-      expect(ngFileProgress.callCount).toBe(1);
-      var args = ngFileProgress.mostRecentCall.args;
+      expect(ngFileProgress.calls.count()).toBe(1);
+      var args = ngFileProgress.calls.mostRecent().args;
       expect(args[1]).toBe(elementScope.$flow);
       expect(args[2]).toBe('file');
     });
@@ -52,18 +52,18 @@ describe('events', function () {
       uploadStart = jasmine.createSpy('uploadStart');
       elementScope.$on('flow::uploadStart', uploadStart);
       elementScope.$flow.fire('uploadStart');
-      expect(uploadStart.callCount).toBe(1);
+      expect(uploadStart.calls.count()).toBe(1);
     });
     it('should execute scope function', function () {
       elementScope.$flow.fire('uploadStart');
-      expect($rootScope.uploadStart.callCount).toBe(1);
+      expect($rootScope.uploadStart.calls.count()).toBe(1);
     });
   });
 
   it('should call event', function () {
     elementScope.$flow.fire('fileProgress', 'file');
     expect($rootScope.fileProgress).toHaveBeenCalledWith('file');
-    expect($rootScope.fileProgress.callCount).toBe(2);
+    expect($rootScope.fileProgress.calls.count()).toBe(2);
   });
 
   describe('nested flow directives', function () {

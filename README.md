@@ -1,13 +1,8 @@
-[![Build Status](https://travis-ci.org/flowjs/ng-flow.svg)](https://travis-ci.org/flowjs/ng-flow)
-[![devDependency Status](https://david-dm.org/flowjs/ng-flow/dev-status.svg)](https://david-dm.org/flowjs/ng-flow#info=devDependencies)
-[![Coverage Status](https://coveralls.io/repos/flowjs/ng-flow/badge.svg?branch=master)](https://coveralls.io/r/flowjs/ng-flow?branch=master)
+# ng-flow [![Build Status](https://travis-ci.org/flowjs/ng-flow.svg)](https://travis-ci.org/flowjs/ng-flow) [![Coverage Status](https://coveralls.io/repos/flowjs/ng-flow/badge.svg?branch=master)](https://coveralls.io/r/flowjs/ng-flow?branch=master)
 
-What is ng-flow?
-============
+[![Saucelabs Test Status](https://saucelabs.com/browser-matrix/ng-flow.svg)](https://saucelabs.com/u/ng-flow)
 
-Flow.js extensions for angular.js framework, no 3rd party JS dependencies required!
-
-ng-flow extension is based on [Flow.js](https://github.com/flowjs/flow.js) library.
+ng-flow is a [Flow.js](https://github.com/flowjs/flow.js) extensions for angular.js framework, no 3rd party JS dependencies required!
 
 Demo: http://flowjs.github.io/ng-flow/
 

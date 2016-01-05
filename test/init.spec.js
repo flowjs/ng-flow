@@ -52,14 +52,14 @@ describe('init', function() {
 
   describe('flow-object', function () {
     it('should create a new flow object', function () {
-      spyOn(flowFactory, 'create').andCallThrough();
+      spyOn(flowFactory, 'create').and.callThrough();
       $compile('<div flow-init></div>')($rootScope);
       $rootScope.$digest();
       expect(flowFactory.create).toHaveBeenCalled();
     });
     it('should init with the existing flow object', function () {
       $rootScope.existingFlow = flowFactory.create();
-      spyOn(flowFactory, 'create').andCallThrough();
+      spyOn(flowFactory, 'create').and.callThrough();
       element = $compile('<div flow-init flow-object="existingFlow"></div>')($rootScope);
       elementScope = element.scope();
       $rootScope.$digest();
@@ -75,17 +75,17 @@ describe('init', function() {
       $rootScope.$digest();
 
       var scopePrototype = Object.getPrototypeOf(elementScope);
-      spyOn(scopePrototype, '$broadcast').andCallThrough();
+      spyOn(scopePrototype, '$broadcast').and.callThrough();
 
       $rootScope.existingFlow.fire('fileProgress', 'file');
-      expect(elementScope.$broadcast.callCount).toEqual(2);
+      expect(elementScope.$broadcast.calls.count()).toEqual(2);
 
       elementScope.$destroy();
-      scopePrototype.$broadcast.reset();
+
+      elementScope.$broadcast.calls.reset();
 
       $rootScope.existingFlow.fire('fileProgress', 'file');
-      expect(elementScope.$broadcast.callCount).toEqual(1);
-
+      expect(elementScope.$broadcast.calls.count()).toEqual(1);
     });
   });
 });
