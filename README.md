@@ -17,15 +17,15 @@ they are also concatenated with core flow.js library.
 
 **Using Bower**
         
-        bower install ng-flow#~2
+        bower install zyncro-ng-flow
                 
 **Git Clone**
         
-        git clone https://github.com/flowjs/ng-flow
+        git clone https://github.com/zyncro/ng-flow
         
 **Using Yeoman**
 
-        bower install "ng-flow#~2" --save
+        bower install "zyncro-ng-flow#1.0.1" --save
         grunt bower-install
                 
 2) Add the module to your app as a dependency:
@@ -53,7 +53,7 @@ First of all wrap places there you are going to use Flow.js
 
 This directive is going to add $flow variable to current scope.
 Also directive can be nested, because `$flow` variable is going to be overridden.
-`$flow` is instance of [Flow](https://github.com/flowjs/flow.js#flow).
+`$flow` is instance of [Flow](https://github.com/zyncro/flow.js#flow).
 
 
 Secondly you need to assign some upload buttons:
@@ -77,7 +77,7 @@ Files array is attached to flow object named `$flow`.
 </tr>
 ````
 
-file is instance of [FlowFile](https://github.com/flowjs/flow.js#flowfile).
+file is instance of [FlowFile](https://github.com/zyncro/flow.js#flowfile).
 
 
 ### Quick setup
