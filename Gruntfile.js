@@ -34,11 +34,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    coveralls: {
-      options: {
-        coverageDir: 'coverage/'
-      }
-    },
     karma: {
       options: {
         configFile: 'karma.conf.js'

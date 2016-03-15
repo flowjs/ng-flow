@@ -1,4 +1,4 @@
-# ng-flow [![Build Status](https://travis-ci.org/flowjs/ng-flow.svg)](https://travis-ci.org/flowjs/ng-flow) [![Coverage Status](https://coveralls.io/repos/flowjs/ng-flow/badge.svg?branch=master&service=github)](https://coveralls.io/github/flowjs/ng-flow?branch=master)
+# ng-flow [![Build Status](https://travis-ci.org/flowjs/ng-flow.svg)](https://travis-ci.org/flowjs/ng-flow) [![Code Climate](https://codeclimate.com/github/flowjs/flow.js/badges/gpa.svg)](https://codeclimate.com/github/flowjs/flow.js) [![Test Coverage](https://codeclimate.com/github/flowjs/ng-flow/badges/coverage.svg)](https://codeclimate.com/github/flowjs/ng-flow/coverage)
 
 [![Saucelabs Test Status](https://saucelabs.com/browser-matrix/ng-flow.svg)](https://saucelabs.com/u/ng-flow)
 

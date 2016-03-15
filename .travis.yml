@@ -18,7 +18,7 @@ matrix:
         sauce_connect: true
   allow_failures:
     - env: TEST='browser-tests'
-before_install: npm install -g grunt-cli bower
+before_install: npm install -g grunt-cli bower codeclimate-test-reporter
 install:
     - npm install
     - bower update
