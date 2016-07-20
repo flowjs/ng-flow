@@ -7,6 +7,7 @@
     filesAdded: ['$files', '$event'],
     filesSubmitted: ['$files', '$event'],
     fileRetry: ['$file'],
+    fileRemoved: ['$file'],
     fileError: ['$file', '$message'],
     uploadStart: [],
     complete: [],
