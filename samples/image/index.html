@@ -29,12 +29,12 @@
       <img flow-img="$flow.files[0]" />
     </div>
     <div>
-      <a href="#" class="btn" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</a>
-      <a href="#" class="btn" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</a>
-      <a href="#" class="btn btn-danger" ng-show="$flow.files.length"
+      <span class="btn" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</span>
+      <span class="btn" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</span>
+      <span class="btn btn-danger" ng-show="$flow.files.length"
          ng-click="$flow.cancel()">
         Remove
-      </a>
+      </span>
     </div>
     <p>
       Only PNG,GIF,JPG files allowed.
