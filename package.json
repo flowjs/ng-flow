@@ -2,6 +2,7 @@
   "name": "@flowjs/ng-flow",
   "version": "2.7.4",
   "description": "Flow.js html5 file upload extension on angular.js framework",
+  "main": "dist/ng-flow.js",
   "scripts": {
     "test": "grunt test"
   },
