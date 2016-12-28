@@ -10,7 +10,7 @@ angular.module('flow.init', ['flow.provider'])
     var catchAllHandler = function(eventName){
       var args = Array.prototype.slice.call(arguments);
       args.shift();
-      var event = $scope.$broadcast.apply($scope, ['flow::' + eventName, flow].concat(args));
+      var event = $scope.$emit.apply($scope, ['flow::' + eventName, flow].concat(args));
       if ({
         'progress':1, 'filesSubmitted':1, 'fileSuccess': 1, 'fileError': 1, 'complete': 1
       }[eventName]) {
