@@ -1,18 +1,24 @@
 {
   "name": "ng-flow",
-  "version": "1.0.0",
+  "version": "2.7.4",
   "ignore": [
     "**/.*",
-    "node_modules",
-    "bower_components",
     "test",
-    "tests"
+    "samples",
+    "build",
+    "*.md",
+    "karma.conf.js",
+    "LICENSE",
+    "Gruntfile.js",
+    "package.json",
+    "bower.json"
   ],
+  "main": "./dist/ng-flow.js",
   "dependencies": {
     "angular": "~1",
     "flow.js": "~2"
   },
   "devDependencies": {
-    "angular-mocks": "~1.2.3"
+    "angular-mocks": "~1"
   }
 }

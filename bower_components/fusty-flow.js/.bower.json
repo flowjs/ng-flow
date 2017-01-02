@@ -1,6 +1,6 @@
 {
   "name": "fusty-flow.js",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "main": [
     "src/fusty-flow.js",
     "src/fusty-flow-factory.js"
@@ -18,13 +18,13 @@
     "flow.js": "~2"
   },
   "homepage": "https://github.com/flowjs/fusty-flow.js",
-  "_release": "1.0.0",
+  "_release": "1.2.0",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.0",
-    "commit": "751e914421457531533b01456a77643762f19286"
+    "tag": "v1.2.0",
+    "commit": "2bb215afdb910d73120938e88dc64683effdd49a"
   },
-  "_source": "git://github.com/flowjs/fusty-flow.js.git",
+  "_source": "https://github.com/flowjs/fusty-flow.js.git",
   "_target": "~1",
   "_originalSource": "fusty-flow.js"
 }
