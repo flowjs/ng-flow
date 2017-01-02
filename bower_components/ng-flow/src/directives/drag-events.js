@@ -7,7 +7,7 @@ angular.module('flow.dragEvents', ['flow.init'])
     return {
       'scope': false,
       'link': function(scope, element, attrs) {
-        element.bind('drop', function (event) {
+        element.bind('drop dragover', function (event) {
           event.preventDefault();
         });
       }
@@ -35,6 +35,7 @@ angular.module('flow.dragEvents', ['flow.init'])
           event.preventDefault();
         });
         element.bind('dragleave drop', function (event) {
+          $timeout.cancel(promise);
           promise = $timeout(function () {
             scope.$eval(attrs.flowDragLeave);
             promise = null;

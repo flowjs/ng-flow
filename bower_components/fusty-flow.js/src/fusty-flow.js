@@ -64,7 +64,7 @@
     var $ = this;
 
     this.inputChangeEvent = function (event) {
-      var input = event.srcElement;
+      var input = event.target || event.srcElement;
       removeEvent(input, 'change', $.inputChangeEvent);
       var newClone = input.cloneNode(false);
       // change current input with new one
@@ -81,6 +81,7 @@
 
   FustyFlow.prototype = {
     on: Flow.prototype.on,
+    off: Flow.prototype.off,
     fire: Flow.prototype.fire,
     cancel: Flow.prototype.cancel,
     assignBrowse: function (domNodes) {
@@ -142,7 +143,7 @@
       // Kick off the queue
       var files = 0;
       each(this.files, function (file) {
-        if (file.progress() == 1) {
+        if (file.progress() == 1 || file.isPaused()) {
           return;
         }
         if (file.isUploading()) {
@@ -163,11 +164,13 @@
     },
     pause: function () {
       each(this.files, function (file) {
-        file.abort();
+        file.pause();
       });
     },
     resume: function () {
-      this.upload();
+      each(this.files, function (file) {
+        file.resume();
+      });
     },
     progress: function () {
       var totalDone = 0;
@@ -247,6 +250,7 @@
 
     this.finished = false;
     this.error = false;
+    this.paused = false;
 
     var $ = this;
     this.iFrameLoaded = function (event) {
@@ -314,23 +318,25 @@
       form.submit();
       removeElement(form);
     },
-    abort: function () {
+    abort: function (noupload) {
       if (this.iFrame) {
         this.iFrame.setAttribute('src', 'java' + String.fromCharCode(115) + 'cript:false;');
         removeElement(this.iFrame);
         this.iFrame = null;
+        !noupload && this.flowObj.upload();
       }
     },
     cancel: function () {
-      this.abort();
       this.flowObj.removeFile(this);
+      this.abort();
     },
     retry: function () {
       this.bootstrap();
       this.flowObj.upload();
     },
     bootstrap: function () {
-      this.abort();
+      this.abort(true);
+      this.finished = false;
       this.error = false;
     },
     timeRemaining: function () {
@@ -340,13 +346,18 @@
       // undefined
     },
     resume: function () {
+      this.paused = false;
       this.flowObj.upload();
     },
     pause: function () {
+      this.paused = true;
       this.abort();
     },
     isUploading: function () {
       return this.iFrame !== null;
+    },
+    isPaused: function () {
+      return this.paused;
     },
     isComplete: function () {
       return this.progress() === 1;
@@ -371,6 +382,10 @@
     },
     createForm: function() {
       var target = this.flowObj.opts.target;
+      if (typeof target === "function") {
+        target = target.apply(null);
+      }
+
       var form = document.createElement('form');
       form.encoding = "multipart/form-data";
       form.method = "POST";
