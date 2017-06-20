@@ -211,6 +211,7 @@ angular.module('flow.drop', ['flow.init'])
     filesAdded: ['$files', '$event'],
     filesSubmitted: ['$files', '$event'],
     fileRetry: ['$file'],
+    fileRemoved: ['$file'],
     fileError: ['$file', '$message'],
     uploadStart: [],
     complete: [],
@@ -251,6 +252,7 @@ angular.module('flow.drop', ['flow.init'])
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }(angular);
+
 angular.module('flow.img', ['flow.init'])
 .directive('flowImg', [function() {
   return {
