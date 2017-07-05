@@ -1,3 +1,7 @@
-/* for module loading using webpack or similar package bundlers */
-window.Flow = require('./dist/ng-flow-standalone');
-module.exports = 'flow';
+/* backwards compatable with deprecated index.js*/
+try {
+  console.warn(new Error("use const ngFlow = require('@flowjs/ng-flow');"));
+} catch (e) {
+  // do nothing
+}
+module.exports = require('./src/ng-flow');
