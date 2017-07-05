@@ -10,15 +10,15 @@ How can I install it?
 ============
 1) Get the library:
 
+**npm**
+
+       npm install angular @flowjs/ng-flow
+
 **Direct Download**
 Download a latest build from https://github.com/flowjs/ng-flow/releases
 it contains development and minified production files in `dist/` directory,
 they are also concatenated with core flow.js library.
 
-**Using Bower**
-        
-        bower install ng-flow#~2
-                
 **Git Clone**
         
         git clone https://github.com/flowjs/ng-flow
@@ -28,11 +28,20 @@ they are also concatenated with core flow.js library.
         bower install "ng-flow#~2" --save
         grunt bower-install
                 
-2) Add the module to your app as a dependency:
+2) Add the module to a module in your app as a dependency:
 
-        angular.module('app', ['flow'])
+        import angular from 'angular';
+        import ngFlow from '@flowjs/ng-flow';
+
+        const MODULE_NAME = 'appName.moduleName';
+        angular.module(MODULE_NAME, [ngFlow]);
+
+        export default MODULE_NAME;
         
 3) Include the files in your project
+See https://www.npmjs.com/package/webpack or https://www.npmjs.com/package/browserify
+
+or for legacy applications:
 ```html
 <!-- concatenated flow.js + ng-flow libraries -->
 <script src="ng-flow/dist/ng-flow-standalone.min.js"></script>
@@ -252,6 +261,17 @@ var app = angular.module('app', ['flow'])
     flowFactoryProvider.factory = fustyFlowFactory;
 }]);
 ````
+
+Bower
+=====
+
+Bower has been deprecated in favour of yarn/webpack, however it is still
+supported by ng-flow for legacy applications.
+
+**Using Bower**
+       
+        bower install ng-flow#~2
+                
 
 Contribution
 ============
