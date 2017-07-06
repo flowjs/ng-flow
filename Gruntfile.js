@@ -19,16 +19,10 @@ module.exports = function(grunt) {
       flow: {
         files: {
           'dist/ng-flow.js': [
-            'src/provider.js',
-            'src/directives/init.js',
-            'src/directives/*.js',
             'src/*.js'
           ],
           'dist/ng-flow-standalone.js': [
             'bower_components/flow.js/dist/flow.js',
-            'src/provider.js',
-            'src/directives/init.js',
-            'src/directives/*.js',
             'src/*.js'
           ]
         }

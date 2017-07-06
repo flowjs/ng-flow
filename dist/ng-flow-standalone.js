@@ -1634,6 +1634,17 @@
   }
 })(window, document);
 
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['angular', '@flowjs/flow.js'], factory);
+    } else if (typeof exports === 'object') {
+        // Node, CommonJS-like
+        module.exports = factory(require('angular'), require('@flowjs/flow.js'));
+    } else {
+        // Browser globals (root is window)
+        root.ngFlow = factory(root.angular, root.Flow);
+    }
+}(this, function (angular, Flow) {
 /**
  * @description
  * var app = angular.module('App', ['flow.provider'], function(flowFactoryProvider){
@@ -1923,3 +1934,6 @@ angular.module('flow.transfers', ['flow.init'])
 }]);
 angular.module('flow', ['flow.provider', 'flow.init', 'flow.events', 'flow.btn',
   'flow.drop', 'flow.transfers', 'flow.img', 'flow.dragEvents']);
+
+return 'flow';
+}));
