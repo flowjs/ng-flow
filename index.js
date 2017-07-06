@@ -4,4 +4,8 @@ try {
 } catch (e) {
   // do nothing
 }
+
+if (typeof window === 'object') {
+  window.Flow = require('@flowjs/flow.js');
+}
 module.exports = require('./src/ng-flow');
