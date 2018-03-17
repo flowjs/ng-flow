@@ -76,7 +76,7 @@ angular.module('flow.init', ['flow.provider'])
       if ({
         'progress':1, 'filesSubmitted':1, 'fileSuccess': 1, 'fileError': 1, 'complete': 1
       }[eventName]) {
-        $scope.$apply();
+        $scope.$applyAsync();
       }
       if (event.defaultPrevented) {
         return false;
