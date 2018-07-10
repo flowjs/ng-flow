@@ -15,6 +15,10 @@ Download a latest build from https://github.com/flowjs/ng-flow/releases
 it contains development and minified production files in `dist/` directory,
 they are also concatenated with core flow.js library.
 
+**Using NPM**
+
+        npm install @flowjs/ng-flow --save
+
 **Using Bower**
         
         bower install ng-flow#~2
