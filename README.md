@@ -2,6 +2,8 @@
 
 [![Saucelabs Test Status](https://saucelabs.com/browser-matrix/ng-flow.svg)](https://saucelabs.com/u/ng-flow)
 
+View angular2+ repo at https://github.com/flowjs/ngx-flow
+
 ng-flow is a [Flow.js](https://github.com/flowjs/flow.js) extensions for angular.js framework, no 3rd party JS dependencies required!
 
 Demo: http://flowjs.github.io/ng-flow/
