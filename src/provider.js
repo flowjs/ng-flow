@@ -19,7 +19,7 @@ angular.module('flow.provider', [])
    * Flow, MaybeFlow or NotFlow
    * @name flowFactoryProvider.factory
    * @type {function}
-   * @return {Flow}
+   * @return {!Flow}
    */
   this.factory = function (options) {
     return new Flow(options);
