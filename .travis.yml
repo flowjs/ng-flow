@@ -5,15 +5,15 @@ cache:
     - node_modules
 env:
   global:
-  - SAUCE_USERNAME=ng-flow
+  - SAUCE_USERNAE=ng-flow
   - SAUCE_ACCESS_KEY=008c40ec-dbaf-4edc-abad-6c6afcc5d13a
 matrix:
   fast_finish: true
   include:
     - env: TEST='unit-tests'
-      node_js: "4.2"
+      node_js: "lts/*"
     - env: TEST='browser-tests'
-      node_js: "4.2"
+      node_js: "lts/*"
       addons:
         sauce_connect: true
   allow_failures:
