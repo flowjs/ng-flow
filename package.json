@@ -25,16 +25,16 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "grunt": "~0.4",
-    "grunt-bump": "0.7.0",
-    "grunt-contrib-clean": "1.0.0",
-    "grunt-contrib-concat": "1.0.0",
-    "grunt-contrib-uglify": "1.0",
-    "grunt-karma": "0.12.1",
-    "karma": "0.13",
-    "karma-coverage": "0.5.5",
-    "karma-firefox-launcher": "0.1.7",
-    "karma-jasmine": "^0.3.6",
-    "karma-sauce-launcher": "0.3.1"
+    "grunt": "1.4",
+    "grunt-bump": "0.8.0",
+    "grunt-contrib-clean": "2.0.0",
+    "grunt-contrib-concat": "2.0.0",
+    "grunt-contrib-uglify": "5.0",
+    "grunt-karma": "4.0.2",
+    "karma": "6.3",
+    "karma-coverage": "2.1.0",
+    "karma-firefox-launcher": "2.1.2",
+    "karma-jasmine": "4.0.1",
+    "karma-sauce-launcher": "4.3.6"
   }
 }
