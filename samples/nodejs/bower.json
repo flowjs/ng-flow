@@ -1,0 +1,21 @@
+{
+  "name": "ng-flow-sample",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "test",
+    "samples",
+    "build",
+    "*.md",
+    "karma.conf.js",
+    "LICENSE",
+    "Gruntfile.js",
+    "package.json",
+    "bower.json"
+  ],
+  "dependencies": {
+    "angular": "~1",
+    "flow.js": "~2",
+    "ng-flow": "~2"
+  }
+}
